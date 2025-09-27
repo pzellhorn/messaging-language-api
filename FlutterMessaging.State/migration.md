@@ -1,7 +1,7 @@
 Run migration
 
 dotnet ef migrations add pluralize_tables --project FlutterMessaging.State --startup-project FlutterMessaging.API
-dotnet ef migrations script --idempotent -o Migrations/pluralize_tables.sql --project FlutterMessaging.State --startup-project FlutterMessaging.API
+dotnet ef migrations script --idempotent -o FlutterMessaging.State/Migrations/pluralize_tables.sql --project FlutterMessaging.State --startup-project FlutterMessaging.API
 
 
 apply to docker pod 
