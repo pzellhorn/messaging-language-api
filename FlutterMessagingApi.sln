@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35707.178 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.API", "FlutterMessagingApi\FlutterMessaging.API.csproj", "{11FBCDCA-4C0E-4223-A41A-A4181D88F968}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.DTO", "FlutterMessaging.DTO\FlutterMessaging.DTO.csproj", "{DFA65551-75C4-4221-8079-A62408D2F4A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.State", "FlutterMessaging.State\FlutterMessaging.State.csproj", "{092CD297-A00A-4B20-8395-61CC1687EC38}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.Logic", "FlutterMessaging.Logic\FlutterMessaging.Logic.csproj", "{22705670-B63A-4A42-A5D6-95FEC71B473A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11FBCDCA-4C0E-4223-A41A-A4181D88F968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11FBCDCA-4C0E-4223-A41A-A4181D88F968}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11FBCDCA-4C0E-4223-A41A-A4181D88F968}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11FBCDCA-4C0E-4223-A41A-A4181D88F968}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA65551-75C4-4221-8079-A62408D2F4A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA65551-75C4-4221-8079-A62408D2F4A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA65551-75C4-4221-8079-A62408D2F4A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA65551-75C4-4221-8079-A62408D2F4A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{092CD297-A00A-4B20-8395-61CC1687EC38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{092CD297-A00A-4B20-8395-61CC1687EC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{092CD297-A00A-4B20-8395-61CC1687EC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{092CD297-A00A-4B20-8395-61CC1687EC38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

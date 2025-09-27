@@ -1,0 +1,6 @@
+@FlutterMessagingApi_HostAddress = http://localhost:5064
+
+GET {{FlutterMessagingApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
