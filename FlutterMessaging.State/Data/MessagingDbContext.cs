@@ -42,7 +42,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.chat_room_id).HasName("chat_room_pkey");
 
-            entity.ToTable("chat_room");
+            entity.ToTable("chat_rooms");
 
             entity.Property(e => e.chat_room_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -54,7 +54,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.chat_room_member_id).HasName("chat_room_member_pkey");
 
-            entity.ToTable("chat_room_member");
+            entity.ToTable("chat_room_members");
 
             entity.Property(e => e.chat_room_member_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -76,7 +76,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.chat_room_message_id).HasName("chat_room_message_pkey");
 
-            entity.ToTable("chat_room_message");
+            entity.ToTable("chat_room_messages");
 
             entity.Property(e => e.chat_room_message_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -98,7 +98,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.flash_card_answer_id).HasName("flash_card_answer_pkey");
 
-            entity.ToTable("flash_card_answer");
+            entity.ToTable("flash_card_answers");
 
             entity.Property(e => e.flash_card_answer_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -120,7 +120,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.flash_card_set_template_id).HasName("flash_card_set_template_pkey");
 
-            entity.ToTable("flash_card_set_template");
+            entity.ToTable("flash_card_set_templates");
 
             entity.Property(e => e.flash_card_set_template_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -132,7 +132,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.flash_card_set_template_item_id).HasName("flash_card_set_template_item_pkey");
 
-            entity.ToTable("flash_card_set_template_item");
+            entity.ToTable("flash_card_set_template_items");
 
             entity.Property(e => e.flash_card_set_template_item_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -149,7 +149,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.language_translation_id).HasName("language_translation_pkey");
 
-            entity.ToTable("language_translation");
+            entity.ToTable("language_translations");
 
             entity.Property(e => e.language_translation_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -161,7 +161,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.language_word_frequency_id).HasName("language_word_frequency_pkey");
 
-            entity.ToTable("language_word_frequency");
+            entity.ToTable("language_word_frequencies");
 
             entity.Property(e => e.language_word_frequency_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -178,7 +178,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.profile_id).HasName("profile_pkey");
 
-            entity.ToTable("profile");
+            entity.ToTable("profiles");
 
             entity.Property(e => e.profile_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
@@ -205,7 +205,7 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.profile_setting_option_id).HasName("profile_setting_option_pkey");
 
-            entity.ToTable("profile_setting_option");
+            entity.ToTable("profile_setting_options");
 
             entity.Property(e => e.profile_setting_option_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
