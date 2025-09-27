@@ -190,6 +190,8 @@ public partial class MessagingDbContext : DbContext
         {
             entity.HasKey(e => e.profile_settings_id).HasName("profile_settings_pkey");
 
+            entity.ToTable("profile_settings");
+
             entity.Property(e => e.profile_settings_id).HasDefaultValueSql("gen_random_uuid()");
             entity.Property(e => e.created_at).HasDefaultValueSql("now()");
             entity.Property(e => e.is_deleted).HasDefaultValue(false);
