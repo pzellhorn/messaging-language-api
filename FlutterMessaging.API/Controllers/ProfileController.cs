@@ -1,3 +1,6 @@
+using FlutterMessaging.API.Controllers.Base;
+using FlutterMessaging.Logic.Base;
+using FlutterMessaging.State.Data.Entities;
 using FlutterMessaging.State.StateLogic;
 using FlutterMessagingApi;
 using Microsoft.AspNetCore.Mvc;
@@ -5,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlutterMessaging.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class ProfileController(ProfileLogic profileLogic) : ControllerBase
-    {
-        private readonly ILogger<ProfileController> _logger; 
+    [Route("api/[controller]")]
+    public class ProfileController(ProfileLogic profileLogic) : BaseController<Profile>(profileLogic)
+    { 
 
         [HttpGet(nameof(Login))]
         public Task<Guid> Login(string username, string password, CancellationToken cancellationToken)

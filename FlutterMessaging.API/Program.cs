@@ -2,6 +2,7 @@
 
 using FlutterMessaging.State.Data;
 using FlutterMessaging.State.Extensions;
+using FlutterMessaging.Logic.ServiceExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlutterMessagingApi
@@ -22,6 +23,7 @@ namespace FlutterMessagingApi
 
             //Repos
             builder.Services.AddRepositories();
+            builder.Services.AddLogic();
 
             var app = builder.Build(); 
              
