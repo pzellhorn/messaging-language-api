@@ -28,9 +28,8 @@ public partial class LanguageWordFrequency : IIsDeleted, ICreatedAt, IModifiedAt
 
     public static Expression<Func<LanguageWordFrequency, Guid>> PrimaryKey => e => e.LanguageWordFrequencyId;
 
-
-
-    public virtual LanguageTranslation LanguageTranslation { get; set; } = null!;
+     
+    public virtual Language Language { get; set; } = null!;
 } 
 
 internal sealed class LanguageWordFrequencyConfig : BaseConfig<LanguageWordFrequency>
@@ -41,8 +40,8 @@ internal sealed class LanguageWordFrequencyConfig : BaseConfig<LanguageWordFrequ
 
         entity.ToTable("language_word_frequencies");
 
-        entity.HasOne(x => x.LanguageTranslation)
+        entity.HasOne(x => x.Language)
         .WithMany(x => x.LanguageWordFrequencies)
-        .HasForeignKey(x => x.LanguageTranslationId);
+        .HasForeignKey(x => x.LanguageId);
     }
 }

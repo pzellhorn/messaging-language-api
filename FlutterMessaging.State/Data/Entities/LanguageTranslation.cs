@@ -10,7 +10,7 @@ namespace FlutterMessaging.State.Data.Entities;
 
 public partial class LanguageTranslation : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeySelector<LanguageTranslation> 
 {
-    public Guid LanguageTranslationId { get; set; }
+    public Guid LanguageTranslationId { get; set; } 
 
     public Guid FromLanguageId { get; set; }
 
@@ -30,9 +30,8 @@ public partial class LanguageTranslation : IIsDeleted, ICreatedAt, IModifiedAt, 
 
     public static Expression<Func<LanguageTranslation, Guid>> PrimaryKey => e => e.LanguageTranslationId;
 
-
-
-    public virtual List<LanguageWordFrequency> LanguageWordFrequencies { get; set; } = new();
+     
+    public virtual Language Langauge { get; set; } = new();
 } 
 
 internal sealed class LanguageTranslationConfig : BaseConfig<LanguageTranslation>
@@ -41,10 +40,6 @@ internal sealed class LanguageTranslationConfig : BaseConfig<LanguageTranslation
     {
         base.Configure(entity);
 
-        entity.ToTable("language_translations");
-
-        entity.HasMany(x => x.LanguageWordFrequencies)
-        .WithOne(x => x.LanguageTranslation)
-        .HasForeignKey(x => x.LanguageTranslationId);
+        entity.ToTable("language_translations"); 
     }
 }

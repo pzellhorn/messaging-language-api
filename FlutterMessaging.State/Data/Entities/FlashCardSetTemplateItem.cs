@@ -30,6 +30,8 @@ public partial class FlashCardSetTemplateItem : IIsDeleted, ICreatedAt, IModifie
     public virtual List<FlashCardAnswer> FlashCardAnswers { get; set; } = new();
 
     public virtual FlashCardSetTemplate FlashCardSetTemplate { get; set; } = null!;
+
+    public virtual List<FlashCardSetTemplateItemOption> FlashCardSetTemplateItemOptions { get; set; } = null!;  
 } 
 
 internal sealed class FlashCardSetTemplateItemConfig : BaseConfig<FlashCardSetTemplateItem>
@@ -49,6 +51,8 @@ internal sealed class FlashCardSetTemplateItemConfig : BaseConfig<FlashCardSetTe
           .WithMany(x => x.FlashCardSetTemplateItems)
           .HasForeignKey(x => x.FlashCardSetTemplateId);
 
-
+        entity.HasMany(x => x.FlashCardSetTemplateItemOptions)
+            .WithOne(x => x.FlashCardSetTemplateItem)
+            .HasForeignKey(x => x.FlashCardSetTemplateItemId); 
     }
 }
