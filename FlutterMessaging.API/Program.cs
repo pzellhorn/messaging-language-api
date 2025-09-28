@@ -1,6 +1,7 @@
 //using Microsoft.EntityFrameworkCore;
 
 using FlutterMessaging.State.Data;
+using FlutterMessaging.State.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlutterMessagingApi
@@ -19,6 +20,8 @@ namespace FlutterMessagingApi
             builder.Services.AddDbContext<MessagingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Local")));
 
+            //Repos
+            builder.Services.AddRepositories();
 
             var app = builder.Build();
 
