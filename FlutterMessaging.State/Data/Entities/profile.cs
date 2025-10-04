@@ -27,6 +27,7 @@ public partial class Profile : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeyS
     public virtual List<ChatRoomMember> ChatRoomMembers { get; set; } = new(); 
     public virtual List<ChatRoomMessage> ChatRoomMessages { get; set; } = new(); 
     public virtual List<FlashCardAnswer> FlashCardAnswers { get; set; } = new();
+    public virtual List<ExternalIdentity> ExternalIdentities { get; set; } = new();
 } 
 
 internal sealed class ProfileConfig : BaseConfig<Profile>
@@ -53,6 +54,9 @@ internal sealed class ProfileConfig : BaseConfig<Profile>
            .WithOne(x => x.Profile)
            .HasForeignKey(x => x.ProfileId);
 
+        entity.HasMany(x => x.ExternalIdentities)
+            .WithOne(x => x.Profile)
+            .HasForeignKey(x => x.ProfileId);
 
     }
 }
