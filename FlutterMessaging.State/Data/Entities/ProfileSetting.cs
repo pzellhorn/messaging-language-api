@@ -25,7 +25,7 @@ public partial class ProfileSetting : IIsDeleted, ICreatedAt, IModifiedAt, IPrim
     public static Expression<Func<ProfileSetting, Guid>> PrimaryKey => e => e.ProfileSettingId;
      
 
-    public virtual Profile Profile { get; set; } = null!;
+    public virtual Profile Profile { get; set; } 
 
     public virtual List<ProfileSettingOption> ProfileSettingOptions { get; set; } = new();
 }

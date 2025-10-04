@@ -11,7 +11,7 @@ public partial class Profile : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeyS
     public Guid ProfileId { get; set; }
 
     public string ProfileName { get; set; } = string.Empty;
-
+    public string EmailAddress { get; set; }  
 
     public bool IsDeleted { get; set; }
 

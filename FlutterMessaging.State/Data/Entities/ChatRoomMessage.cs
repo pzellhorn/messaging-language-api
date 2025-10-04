@@ -26,12 +26,12 @@ public partial class ChatRoomMessage : IIsDeleted, ICreatedAt, IModifiedAt, IPri
     public DateTime ModifiedAt { get; set; }
 
 
-    public static Expression<Func<ChatRoomMessage, Guid>> PrimaryKey => e => e.ChatRoomId; 
+    public static Expression<Func<ChatRoomMessage, Guid>> PrimaryKey => e => e.ChatRoomId;
 
 
-    public virtual ChatRoom ChatRoom { get; set; } = null!;
+    public virtual ChatRoom ChatRoom { get; set; }
 
-    public virtual Profile Profile { get; set; } = null!;
+    public virtual Profile Profile { get; set; }
 }  
 
 internal sealed class ChatRoomMessageConfig : BaseConfig<ChatRoomMessage>

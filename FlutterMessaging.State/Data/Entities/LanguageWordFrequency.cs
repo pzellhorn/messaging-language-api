@@ -29,7 +29,7 @@ public partial class LanguageWordFrequency : IIsDeleted, ICreatedAt, IModifiedAt
     public static Expression<Func<LanguageWordFrequency, Guid>> PrimaryKey => e => e.LanguageWordFrequencyId;
 
      
-    public virtual Language Language { get; set; } = null!;
+    public virtual Language Language { get; set; }  
 } 
 
 internal sealed class LanguageWordFrequencyConfig : BaseConfig<LanguageWordFrequency>

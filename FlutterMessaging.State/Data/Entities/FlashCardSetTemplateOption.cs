@@ -33,7 +33,7 @@ namespace FlutterMessaging.State.Data.Entities
         public static Expression<Func<FlashCardSetTemplateItemOption, Guid>> PrimaryKey => e => e.FlashCardSetTemplateItemOptionId;
 
 
-        public virtual FlashCardSetTemplateItem FlashCardSetTemplateItem { get; set; } = null;
+        public virtual FlashCardSetTemplateItem FlashCardSetTemplateItem { get; set; }  
 
     }
 

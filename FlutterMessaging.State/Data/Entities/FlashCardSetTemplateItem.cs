@@ -29,9 +29,9 @@ public partial class FlashCardSetTemplateItem : IIsDeleted, ICreatedAt, IModifie
 
     public virtual List<FlashCardAnswer> FlashCardAnswers { get; set; } = new();
 
-    public virtual FlashCardSetTemplate FlashCardSetTemplate { get; set; } = null!;
+    public virtual FlashCardSetTemplate FlashCardSetTemplate { get; set; }
 
-    public virtual List<FlashCardSetTemplateItemOption> FlashCardSetTemplateItemOptions { get; set; } = null!;  
+    public virtual List<FlashCardSetTemplateItemOption> FlashCardSetTemplateItemOptions { get; set; } = new();
 } 
 
 internal sealed class FlashCardSetTemplateItemConfig : BaseConfig<FlashCardSetTemplateItem>

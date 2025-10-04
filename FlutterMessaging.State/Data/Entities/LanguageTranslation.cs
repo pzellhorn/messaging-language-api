@@ -31,7 +31,7 @@ public partial class LanguageTranslation : IIsDeleted, ICreatedAt, IModifiedAt, 
     public static Expression<Func<LanguageTranslation, Guid>> PrimaryKey => e => e.LanguageTranslationId;
 
      
-    public virtual Language Langauge { get; set; } = new();
+    public virtual Language Langauge { get; set; } 
 } 
 
 internal sealed class LanguageTranslationConfig : BaseConfig<LanguageTranslation>

@@ -28,9 +28,9 @@ public partial class ChatRoomMember : IIsDeleted, ICreatedAt, IModifiedAt, IPrim
     public static Expression<Func<ChatRoomMember, Guid>> PrimaryKey => e => e.ChatRoomMemberId;
 
 
-    public virtual ChatRoom ChatRoom { get; set; } = null!;
+    public virtual ChatRoom ChatRoom { get; set; }
 
-    public virtual Profile Profile { get; set; } = null!;   
+    public virtual Profile Profile { get; set; }
 
 } 
 

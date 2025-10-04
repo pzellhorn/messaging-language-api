@@ -29,9 +29,9 @@ public partial class FlashCardAnswer : IIsDeleted, ICreatedAt, IModifiedAt, IPri
     public static Expression<Func<FlashCardAnswer, Guid>> PrimaryKey => e => e.FlashCardAnswerId;
 
 
-    public virtual FlashCardSetTemplateItem FlashCardSetTemplateItem { get; set; } = null!;
+    public virtual FlashCardSetTemplateItem FlashCardSetTemplateItem { get; set; } 
 
-    public virtual Profile Profile { get; set; } = null!;
+    public virtual Profile Profile { get; set; } 
 } 
 
 internal sealed class FlashCardAnswerConfig : BaseConfig<FlashCardAnswer>

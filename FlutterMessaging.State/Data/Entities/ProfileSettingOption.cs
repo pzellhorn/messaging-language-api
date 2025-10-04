@@ -14,9 +14,9 @@ public partial class ProfileSettingOption : IIsDeleted, ICreatedAt, IModifiedAt,
 
     public Guid ProfileSettingId { get; set; }
 
-    public string OptionKey { get; set; } = null!;
+    public string OptionKey { get; set; } 
 
-    public string OptionValue { get; set; } = null!;
+    public string OptionValue { get; set; } 
 
 
     public bool IsDeleted { get; set; }
@@ -29,7 +29,7 @@ public partial class ProfileSettingOption : IIsDeleted, ICreatedAt, IModifiedAt,
     public static Expression<Func<ProfileSettingOption, Guid>> PrimaryKey => e => e.ProfileSettingOptionId; 
 
 
-    public virtual ProfileSetting ProfileSetting { get; set; } = null!;
+    public virtual ProfileSetting ProfileSetting { get; set; }
 } 
 
 internal sealed class ProfileSettingOptionConfig : BaseConfig<ProfileSettingOption>
