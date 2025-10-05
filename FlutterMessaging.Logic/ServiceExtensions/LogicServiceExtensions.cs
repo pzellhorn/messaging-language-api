@@ -12,6 +12,9 @@ namespace FlutterMessaging.Logic.ServiceExtensions
         {
             services.AddScoped(typeof(IBaseLogic<>), typeof(BaseLogic<>));
             services.AddScoped<ProfileLogic>();
+            services.AddScoped<ExternalIdentityLogic>();
+
+
 
             return services;
         }
