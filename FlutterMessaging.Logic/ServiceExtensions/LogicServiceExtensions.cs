@@ -1,7 +1,4 @@
-﻿using FlutterMessaging.Logic.Base;
-using FlutterMessaging.State.Data.Entities;
-using FlutterMessaging.State.StateLogic;
-using Microsoft.EntityFrameworkCore;
+﻿using FlutterMessaging.Logic.Base; 
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlutterMessaging.Logic.ServiceExtensions

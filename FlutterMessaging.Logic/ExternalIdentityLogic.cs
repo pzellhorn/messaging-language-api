@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using FlutterMessaging.Logic.Base;
 using FlutterMessaging.State.Base.Interfaces;
 using FlutterMessaging.State.Data.Entities;
-using Google.Apis.Auth; 
+using Google.Apis.Auth;
 
 
 namespace FlutterMessaging.Logic
-{ 
+{
     public class ExternalIdentityLogic(IBaseRepository<ExternalIdentity> externalIdentityRepository, IBaseRepository<Profile> profileRepository) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
     {
-        public async Task<ExternalIdentity> AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken)
+        public async Task<Profile> AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken)
         {
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings
             {
@@ -24,13 +24,13 @@ namespace FlutterMessaging.Logic
             GoogleJsonWebSignature.Payload payload = await GoogleJsonWebSignature.ValidateAsync(token, settings);
 
             bool validIssuer = payload.Issuer == "https://accounts.google.com" || payload.Issuer == "accounts.google.com";
-            
-            if (!validIssuer) throw new UnauthorizedAccessException("Bad issuer");
-            if (!(payload.EmailVerified)) throw new UnauthorizedAccessException("Unverified email");
 
-            //nonce
-            if (!string.IsNullOrEmpty(nonce) && !string.Equals(payload.Nonce, nonce, StringComparison.Ordinal))
-                throw new UnauthorizedAccessException("Nonce mismatch");
+            if (!validIssuer) throw new UnauthorizedAccessException("Bad issuer");
+            if (!payload.EmailVerified) throw new UnauthorizedAccessException("Unverified email");
+
+            ////nonce
+            //if (!string.IsNullOrEmpty(nonce) && !string.Equals(payload.Nonce, nonce, StringComparison.Ordinal))
+            //    throw new UnauthorizedAccessException("Nonce mismatch");
 
             string subject = payload.Subject;
             string issuer = payload.Issuer;
@@ -46,7 +46,7 @@ namespace FlutterMessaging.Logic
                 newProfile.EmailAddress = email;
 
 
-                profile = await profileRepository.Upsert(newProfile, cancellationToken);  
+                profile = await profileRepository.Upsert(newProfile, cancellationToken);
             }
 
             // If this authentication method is not yet mapped to the user acccount, map a new ExternalIdentity to it. 
@@ -66,8 +66,8 @@ namespace FlutterMessaging.Logic
 
 
 
-            //return token
-            return default;
+            //return token - NYI, return profile for now.
+            return profile; 
         }
     }
 }

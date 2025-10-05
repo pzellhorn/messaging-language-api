@@ -1,7 +1,7 @@
 using FlutterMessaging.API.Controllers.Base;
+using FlutterMessaging.Logic;
 using FlutterMessaging.Logic.Base;
-using FlutterMessaging.State.Data.Entities;
-using FlutterMessaging.State.StateLogic;
+using FlutterMessaging.State.Data.Entities; 
 using FlutterMessagingApi;
 using Microsoft.AspNetCore.Mvc;
 
