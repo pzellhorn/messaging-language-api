@@ -54,68 +54,39 @@ namespace FlutterMessaging.State.Data
 
             Expression<Func<T, bool>> pred = BuildKeyPredicate<T>(id, includeDeleted: !excludeSoftDelete);
             return query.SingleOrDefaultAsync(pred, cancellationToken);
-        }
+        } 
 
-        public static Task<List<T>> GetFor<T>(
-            this DbContext db,
-            Guid foreignKey,
-            string propertyName,
-            bool excludeSoftDelete,
-            CancellationToken ct = default)
-         where T : class, IPrimaryKeySelector<T>, IIsDeleted
-        {
-            if (foreignKey == Guid.Empty)
-                return Task.FromResult(new List<T>());
-
-            IEntityType? entityType = db.Model.FindEntityType(typeof(T));
-
-            if (entityType == null)
-                return default;
-
-            IProperty? prop = entityType.GetProperties()
-                         .FirstOrDefault(p => p.Name.Equals(propertyName, StringComparison.OrdinalIgnoreCase));
-
-            if (prop == null)
-                return default;
-
-            IQueryable<T> query = db.Set<T>();
-            if (!excludeSoftDelete)
-                query = query.IgnoreQueryFilters();
-
-            if (prop.ClrType == typeof(Guid))
-            {
-                return query.Where(e =>
-                        EF.Property<Guid>(e, prop.Name) == foreignKey &&
-                        (excludeSoftDelete ? !e.IsDeleted : true))
-                    .ToListAsync(ct);
-            }
-
-            return default;
-        }
-
-        public static Task<List<T>> GetFor<T>(
+        public static Task<List<T>> GetFor<T, TKey>(
           this DbContext db,
-          Guid foreignKey,
-          Expression<Func<T, Guid?>> property,
+          TKey key,
+          Expression<Func<T, TKey?>> property,
           bool excludeSoftDelete,
           CancellationToken cancellationToken = default)
           where T : class,  IIsDeleted
-        {
-            if (foreignKey == Guid.Empty)
-                return Task.FromResult(new List<T>());
-
-
+        { 
             IQueryable<T> query = db.Set<T>();
             if (!excludeSoftDelete) query = query.IgnoreQueryFilters();
 
-            ParameterExpression prop = property.Parameters[0];
-            BinaryExpression expression = Expression.Equal(property.Body, Expression.Convert(Expression.Constant(foreignKey), typeof(Guid?)));
+            ParameterExpression param = property.Parameters[0];
 
-            BinaryExpression body = excludeSoftDelete ?
-                Expression.AndAlso(expression, Expression.Equal(Expression.Property(prop, nameof(IIsDeleted.IsDeleted)), Expression.Constant(false))) : expression;
+            Type keyType = property.Body.Type;
+            Type underlyingType = Nullable.GetUnderlyingType(keyType) ?? keyType;
+             
+            Expression rightConst = Expression.Constant(key, underlyingType);
+            if (keyType != underlyingType)
+                rightConst = Expression.Convert(rightConst, keyType);
 
-            Expression<Func<T, bool>> pred = Expression.Lambda<Func<T, bool>>(body, prop);
+            BinaryExpression equals = Expression.Equal(property.Body, rightConst);
 
+            Expression body = excludeSoftDelete
+                ? Expression.AndAlso(
+                    equals,
+                    Expression.Equal(
+                        Expression.Property(param, nameof(IIsDeleted.IsDeleted)),
+                        Expression.Constant(false)))
+                : equals;
+
+            Expression<Func<T, bool>> pred = Expression.Lambda<Func<T, bool>>(body, param);
             return query.Where(pred).ToListAsync(cancellationToken);
         }
 
@@ -175,7 +146,6 @@ namespace FlutterMessaging.State.Data
              
             await db.SaveChangesAsync(cancellationToken);
             return true;
-        }
-
+        } 
     }
 }

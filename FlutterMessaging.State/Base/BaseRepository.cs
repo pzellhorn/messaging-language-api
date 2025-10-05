@@ -7,14 +7,12 @@ namespace FlutterMessaging.State.Base
 {
     public class BaseRepository<T>(MessagingDbContext db) : IBaseRepository<T> where T : class, IIsDeleted, IPrimaryKeySelector<T>
     {
-        public Task<T?> Get(Guid id, bool excludeSoftDelete = true, CancellationToken cancellationToken = default)
-            => db.Get<T>(id, excludeSoftDelete, cancellationToken); 
+        public Task<T?> Get(Guid id, CancellationToken cancellationToken = default, bool excludeSoftDelete = true)
+            => db.Get<T>(id, excludeSoftDelete, cancellationToken);
 
-        public Task<List<T>> GetFor(Guid foreignKey, string propertyName, bool excludeSoftDelete = true, CancellationToken cancellationToken = default)
-            => db.GetFor<T>(foreignKey, propertyName, excludeSoftDelete, cancellationToken);
+        public Task<List<T>> GetFor<TKey>(TKey key,Expression<Func<T, TKey>> property, CancellationToken cancellationToken = default, bool excludeSoftDelete = true)
+            => db.GetFor(key, property, excludeSoftDelete, cancellationToken);
 
-        public Task<List<T>> GetFor(Guid foreignKey, Expression<Func<T, Guid?>> property, bool excludeSoftDelete = true, CancellationToken cancellationToken = default)
-            => db.GetFor(foreignKey, property, excludeSoftDelete, cancellationToken);
 
         public Task<T> Upsert(T entity, CancellationToken cancellationToken = default)
             => db.Upsert(entity, cancellationToken);
