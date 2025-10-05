@@ -17,7 +17,7 @@ expected output should list all tables loaded into postgreSQL database
 
 **Confirm data exists in table**
 $cid = docker compose ps -q db
-docker exec -it $cid psql -U peter -d messagingdb -c "SELECT * FROM profiles LIMIT 10;"
+docker exec -it $cid psql -U peter -d messagingdb -c "SELECT * FROM external_identities LIMIT 10;"
 
 
 

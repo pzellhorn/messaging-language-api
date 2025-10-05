@@ -19,7 +19,8 @@ namespace FlutterMessagingApi
 
             //dbContext EFCore
             builder.Services.AddDbContext<MessagingDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("Local")));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("Local"))
+                        .UseSnakeCaseNamingConvention());
 
             //Repos
             builder.Services.AddRepositories();

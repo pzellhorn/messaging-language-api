@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Text.Json.Serialization;
 using FlutterMessaging.State.Base;
 using FlutterMessaging.State.Base.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +21,20 @@ public partial class Profile : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeyS
     public DateTime ModifiedAt { get; set; }
 
 
-    public static Expression<Func<Profile, Guid>> PrimaryKey => e => e.ProfileId; 
+    public static Expression<Func<Profile, Guid>> PrimaryKey => e => e.ProfileId;
 
 
-    public virtual List<ProfileSetting> ProfileSettings { get; set; } = new(); 
-    public virtual List<ChatRoomMember> ChatRoomMembers { get; set; } = new(); 
-    public virtual List<ChatRoomMessage> ChatRoomMessages { get; set; } = new(); 
+    [JsonIgnore]
+    public virtual List<ProfileSetting> ProfileSettings { get; set; } = new();
+    [JsonIgnore]
+    public virtual List<ChatRoomMember> ChatRoomMembers { get; set; } = new();
+    [JsonIgnore]
+    public virtual List<ChatRoomMessage> ChatRoomMessages { get; set; } = new();
+    [JsonIgnore]
     public virtual List<FlashCardAnswer> FlashCardAnswers { get; set; } = new();
+    [JsonIgnore]
     public virtual List<ExternalIdentity> ExternalIdentities { get; set; } = new();
+     
 } 
 
 internal sealed class ProfileConfig : BaseConfig<Profile>
