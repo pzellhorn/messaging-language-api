@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FlutterMessaging.DTO
+{
+    public class AuthRequest
+    {
+        public string Token { get; set; }
+        public string? Nonce { get; set; }
+    }
+}
