@@ -13,7 +13,7 @@ namespace FlutterMessaging.API.Controllers
         [HttpPost(nameof(UpsertFlashCardSet))]
         public Task<Guid> UpsertFlashCardSet(CancellationToken cancellationToken)
         {
-            return flashCardSetTemplateLogic.UpsertFlashCardSet(cancellationToken);
+            return default;
         } 
     } 
 } 

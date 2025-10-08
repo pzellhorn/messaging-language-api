@@ -13,6 +13,7 @@ public partial class FlashCardSetTemplate : IIsDeleted, ICreatedAt, IModifiedAt,
     public Guid FlashCardSetTemplateId { get; set; }
 
     public string FlashCardSetName { get; set; } = string.Empty; 
+    public int FlashCardType { get; set; }
 
 
     public bool IsDeleted { get; set; }
