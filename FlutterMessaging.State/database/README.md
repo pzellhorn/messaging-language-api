@@ -4,7 +4,7 @@ Windows:
 1\. Start postgres pod
 docker compose up -d 
 
-Warning: Do not "docker compose down -v", the state is currently ephemeral and this will wipe the database
+Warning: Do not "docker compose down -v", the state of the docker pod will be wiped. The data will otherwise survive restarts.
 
 **Confirm all tables are loaded** 
 
