@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.State", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.Logic", "FlutterMessaging.Logic\FlutterMessaging.Logic.csproj", "{22705670-B63A-4A42-A5D6-95FEC71B473A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlutterMessaging.ClientAPI", "FlutterMessaging.ClientAPI\FlutterMessaging.ClientAPI.csproj", "{497299AC-FEB3-4190-AB6B-2F01D8256347}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22705670-B63A-4A42-A5D6-95FEC71B473A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{497299AC-FEB3-4190-AB6B-2F01D8256347}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{497299AC-FEB3-4190-AB6B-2F01D8256347}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{497299AC-FEB3-4190-AB6B-2F01D8256347}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{497299AC-FEB3-4190-AB6B-2F01D8256347}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

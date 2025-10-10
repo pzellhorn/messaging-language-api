@@ -4,6 +4,7 @@ using FlutterMessaging.State.Data;
 using FlutterMessaging.State.Extensions;
 using FlutterMessaging.Logic.ServiceExtensions;
 using Microsoft.EntityFrameworkCore;
+using FlutterMessaging.ClientAPI.ServiceExtensions;
 
 namespace FlutterMessagingApi
 {
@@ -13,8 +14,9 @@ namespace FlutterMessagingApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            Uri baseAddress = new("https://localhost:5001/");
 
+            // Add services to the container. 
             builder.Services.AddControllers();
 
             //dbContext EFCore
@@ -22,9 +24,11 @@ namespace FlutterMessagingApi
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Local"))
                         .UseSnakeCaseNamingConvention());
 
-            //Repos
+            //Extensions
             builder.Services.AddRepositories();
             builder.Services.AddLogic();
+            builder.Services.AddClientApiExtensions(baseAddress);
+
 
             var app = builder.Build(); 
              

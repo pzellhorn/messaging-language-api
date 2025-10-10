@@ -1,8 +1,6 @@
 using FlutterMessaging.API.Controllers.Base;
 using FlutterMessaging.Logic;
-using FlutterMessaging.Logic.Base;
-using FlutterMessaging.State.Data.Entities; 
-using FlutterMessagingApi;
+using FlutterMessaging.State.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlutterMessaging.API.Controllers
@@ -19,7 +17,7 @@ namespace FlutterMessaging.API.Controllers
         }
 
         [HttpPost(nameof(UpsertProfile))]
-        public async Task<ActionResult> UpsertProfile(string profile_name, CancellationToken cancellationToken)
+        public async Task<ActionResult<Profile>> UpsertProfile(string profile_name, CancellationToken cancellationToken)
         {
             return Ok(await profileLogic.UpsertProfile(profile_name));
         }

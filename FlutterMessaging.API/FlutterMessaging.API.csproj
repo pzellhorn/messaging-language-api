@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FlutterMessaging.ClientAPI\FlutterMessaging.ClientAPI.csproj" />
     <ProjectReference Include="..\FlutterMessaging.DTO\FlutterMessaging.DTO.csproj" />
 	  <ProjectReference Include="..\FlutterMessaging.State\FlutterMessaging.State.csproj" />
 	  <ProjectReference Include="..\FlutterMessaging.Logic\FlutterMessaging.Logic.csproj" />
