@@ -11,9 +11,10 @@ namespace FlutterMessaging.API.Controllers
     public class FlashCardSetTemplateController(FlashCardSetTemplateLogic flashCardSetTemplateLogic) : BaseController<FlashCardSetTemplate>(flashCardSetTemplateLogic)
     {
         [HttpPost(nameof(UpsertFlashCardSet))]
-        public Task<Guid> UpsertFlashCardSet(CancellationToken cancellationToken)
+        public async Task<Guid> UpsertFlashCardSet(CancellationToken cancellationToken)
         {
-            return default;
+            await Task.Yield();
+            return Guid.Empty;
         } 
     } 
 } 

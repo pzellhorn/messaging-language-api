@@ -9,6 +9,8 @@ namespace FlutterMessaging.ClientAPI.ServiceExtensions
         {
             services.AddHttpClient<ApiTransport>(x => x.BaseAddress = baseAddress);
 
+            services.AddScoped<FlashCardSetTemplateApi>();
+
             return services;
         }
     }
