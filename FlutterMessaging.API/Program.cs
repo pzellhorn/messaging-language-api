@@ -1,5 +1,3 @@
-//using Microsoft.EntityFrameworkCore;
-
 using FlutterMessaging.State.Data;
 using FlutterMessaging.State.Extensions;
 using FlutterMessaging.Logic.ServiceExtensions;
@@ -14,7 +12,7 @@ namespace FlutterMessagingApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            Uri baseAddress = new("https://localhost:5001/");
+            Uri baseAddress = new Uri("http://localhost:5064/");
 
             // Add services to the container. 
             builder.Services.AddControllers();

@@ -1,4 +1,5 @@
-﻿using FlutterMessaging.ClientAPI.Base;
+﻿using System.Net;
+using FlutterMessaging.ClientAPI.Base;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlutterMessaging.ClientAPI.ServiceExtensions
@@ -7,9 +8,10 @@ namespace FlutterMessaging.ClientAPI.ServiceExtensions
     {
         public static IServiceCollection AddClientApiExtensions(this IServiceCollection services, Uri baseAddress)
         {
-            services.AddHttpClient<ApiTransport>(x => x.BaseAddress = baseAddress);
+            services.AddHttpClient<ApiTransport>(x => x.BaseAddress = baseAddress); 
 
-            services.AddScoped<FlashCardSetTemplateApi>();
+            //ClientApi Implementations
+            services.AddScoped<FlashCardSetTemplateApi>(); 
 
             return services;
         }
