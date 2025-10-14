@@ -12,7 +12,7 @@ namespace FlutterMessagingApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            Uri baseAddress = new Uri("http://localhost:5064/");
+            Uri baseAddress = new("http://localhost:5064/");
 
             // Add services to the container. 
             builder.Services.AddControllers();
