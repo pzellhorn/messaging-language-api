@@ -1,0 +1,34 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FlutterMessaging.Logic.Base.DTOAdapter
+{
+    public interface IDTOMapper<TEntity, TReq, TRes>
+    {
+        Guid? ExtractId(TReq request);
+
+        /// <summary>
+        /// Applies Request object values to existing -model
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        void ApplyRequestToModel(TReq request, TEntity entity);
+
+        /// <summary>
+        /// Creates new Model entity based on request params
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        TEntity CreateEntity(TReq request);
+        /// <summary>
+        /// Converts Model to response object
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        TRes ToResponse(TEntity entity);
+    }
+}

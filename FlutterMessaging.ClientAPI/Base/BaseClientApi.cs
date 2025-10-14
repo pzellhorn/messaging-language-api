@@ -5,7 +5,7 @@ using FlutterMessaging.ClientAPI.Types;
 
 namespace FlutterMessaging.ClientAPI.Base
 {
-    public abstract class BaseClientApi<T>(ApiTransport api, string controllerSegment) : IBaseClientApi<T> where T : class
+    public abstract class BaseClientApi<TReq, TRes>(ApiTransport api, string controllerSegment) : IBaseClientApi<TReq, TRes>
     {     
         protected virtual string BasePath => $"api/{controllerSegment}";
         protected virtual JsonSerializerOptions Json => api.JsonOptions;
@@ -22,25 +22,25 @@ namespace FlutterMessaging.ClientAPI.Base
             return string.IsNullOrEmpty(qs) ? baseUrl : $"{baseUrl}?{qs}";
         }
 
-        public Task<T> Upsert(T entity, CancellationToken cancellationToken = default)
-          => Post<T, T>(nameof(Upsert), entity, cancellationToken);
+        public Task<TRes?> Get(Guid id, CancellationToken cancellationToken = default)
+           => api.Get<TRes?>(ActionUrl(nameof(Get), ("id", id.ToString())), cancellationToken);
 
-        protected Task<TResult> Post<TResult>(string action, CancellationToken cancellationToken = default, params (string Key, string? Value)[] query)
-            => api.Post<TResult>(ActionUrl(action, query), cancellationToken);
-
-        protected Task<TResult> Post<TRequest, TResult>(string action, TRequest body, CancellationToken cancellationToken = default, params (string Key, string? Value)[] query)
-            => api.Post<TRequest, TResult>(ActionUrl(action, query), body, cancellationToken);
-          
-        public Task<T?> Get(Guid id, CancellationToken cancellationToken = default)
-            => api.Get<T?>(ActionUrl(nameof(Get), ("id", id.ToString())), cancellationToken);  
+        public Task<TRes> Upsert(TReq request, CancellationToken cancellationToken = default)
+            => api.Post<TReq, TRes>(ActionUrl(nameof(Upsert)), request, cancellationToken);
 
         public async Task<bool> Delete(Guid id, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage resp = await api.Delete(ActionUrl(nameof(Delete), ("id", id.ToString())), cancellationToken);
+            var resp = await api.Delete(ActionUrl(nameof(Delete), ("id", id.ToString())), cancellationToken);
             if (resp.StatusCode == HttpStatusCode.NoContent) return true;
             if (resp.StatusCode == HttpStatusCode.NotFound) return false;
             resp.EnsureSuccessStatusCode();
             return true;
         }
+
+        protected Task<TResult> Post<TResult>(string action, CancellationToken cancellationToken = default, params (string Key, string? Value)[] query)
+            => api.Post<TResult>(ActionUrl(action, query), cancellationToken);
+
+        protected Task<TResult> Post<TRequest, TResult>(string action, TRequest body, CancellationToken cancellationToken = default, params (string Key, string? Value)[] query)
+           => api.Post<TRequest, TResult>(ActionUrl(action, query), body, cancellationToken);
     }
 } 

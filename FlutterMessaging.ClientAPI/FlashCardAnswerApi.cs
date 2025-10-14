@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FlutterMessaging.ClientAPI.Base;
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 using FlutterMessaging.State.Data.Entities;
 
 namespace FlutterMessaging.ClientAPI
 {
-    public class FlashCardAnswerApi(ApiTransport api) : BaseClientApi<FlashCardAnswer>(api, "FlashCardAnswer")
+    public class FlashCardAnswerApi(ApiTransport api) : BaseClientApi<FlashCardAnswerRequest, FlashCardAnswerResponse>(api, "FlashCardAnswer")
     {
     }
 

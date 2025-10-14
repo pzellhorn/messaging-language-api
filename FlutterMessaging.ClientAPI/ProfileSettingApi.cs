@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using FlutterMessaging.ClientAPI.Base;
 using FlutterMessaging.State.Data.Entities;
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 
 namespace FlutterMessaging.ClientAPI
 {
-    public class ProfileSettingApi(ApiTransport api) : BaseClientApi<ProfileSetting>(api, "ProfileSetting")
+    public class ProfileSettingApi(ApiTransport api) : BaseClientApi<ProfileSettingRequest, ProfileSettingResponse>(api, "ProfileSetting")
     {
     }
 }

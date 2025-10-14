@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FlutterMessaging.ClientAPI.Base;
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 using FlutterMessaging.State.Data.Entities;
 
 namespace FlutterMessaging.ClientAPI
 { 
-    public class ChatRoomApi(ApiTransport api) : BaseClientApi<ChatRoom>(api, "ChatRoom")
+    public class ChatRoomApi(ApiTransport api) : BaseClientApi<ChatRoomRequest, ChatRoomResponse>(api, "ChatRoom")
     {
     }
 }

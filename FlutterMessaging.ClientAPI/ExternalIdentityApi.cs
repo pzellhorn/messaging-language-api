@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FlutterMessaging.ClientAPI.Base;
-using FlutterMessaging.State.Data.Entities;
+using FlutterMessaging.State.Data.Entities; 
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 
 namespace FlutterMessaging.ClientAPI
 {
-    public class ExternalIdentityApi(ApiTransport api) : BaseClientApi<ExternalIdentity>(api, "ExternalIdentity")
+    public class ExternalIdentityApi(ApiTransport api) : BaseClientApi<ExternalIdentityRequest, ExternalIdentityResponse>(api, "ExternalIdentity")
     {
     }
 }

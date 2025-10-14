@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using FlutterMessaging.ClientAPI.Base;
 using FlutterMessaging.State.Data.Entities;
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 
 namespace FlutterMessaging.ClientAPI
 {
-    public class JwtKeyApi(ApiTransport api) : BaseClientApi<JwtKey>(api, "JwtKey")
+    public class JwtKeyApi(ApiTransport api) : BaseClientApi<JwtKeyRequest, JwtKeyResponse>(api, "JwtKey")
     {
     }
 }
