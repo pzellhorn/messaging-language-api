@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FlutterMessaging.DTO\FlutterMessaging.DTO.csproj" />
-    <ProjectReference Include="..\FlutterMessaging.State\FlutterMessaging.State.csproj" />
   </ItemGroup>
 
 </Project>
