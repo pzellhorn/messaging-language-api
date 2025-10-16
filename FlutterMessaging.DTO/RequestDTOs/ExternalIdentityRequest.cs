@@ -1,10 +1,22 @@
-namespace FlutterMessaging.DTO.RequestDTOs;
-
-public class ExternalIdentityRequest(Guid? externalIdentityId, Guid profileId, string provider, string subject, string issuer)
+namespace FlutterMessaging.DTO.RequestDTOs
 {
-    public Guid? ExternalIdentityId { get; } = externalIdentityId;
-    public Guid ProfileId { get; } = profileId;
-    public string Provider { get; } = provider;
-    public string Subject { get; } = subject;
-    public string Issuer { get; } = issuer;
+    public class ExternalIdentityRequest
+    {
+        public ExternalIdentityRequest() { }
+        public ExternalIdentityRequest(Guid? externalIdentityId, Guid profileId, string provider, string subject, string issuer)
+        {
+            this.ExternalIdentityId = externalIdentityId;
+            this.ProfileId = profileId;
+            this.Provider = provider;
+            this.Subject = subject;
+            this.Issuer = issuer;
+        }
+        public Guid? ExternalIdentityId { get; }
+        public Guid ProfileId { get; }
+        public string Provider { get; }
+        public string Subject { get; }
+        public string Issuer { get; }
+    }
+
 }
+

@@ -1,9 +1,21 @@
-namespace FlutterMessaging.DTO.RequestDTOs;
-
-public class FlashCardSetTemplateItemOptionRequest(Guid? flashCardSetTemplateItemOptionId, Guid flashCardSetTemplateItemId, string optionKey, string optionValue)
+namespace FlutterMessaging.DTO.RequestDTOs
 {
-    public Guid? FlashCardSetTemplateItemOptionId { get; } = flashCardSetTemplateItemOptionId;
-    public Guid FlashCardSetTemplateItemId { get; } = flashCardSetTemplateItemId;
-    public string OptionKey { get; } = optionKey;
-    public string OptionValue { get; } = optionValue;
+    public class FlashCardSetTemplateItemOptionRequest
+    {
+        public FlashCardSetTemplateItemOptionRequest() { }
+        public FlashCardSetTemplateItemOptionRequest(Guid? flashCardSetTemplateItemOptionId, Guid flashCardSetTemplateItemId, string optionKey, string optionValue)
+        {
+            this.FlashCardSetTemplateItemOptionId = flashCardSetTemplateItemOptionId;
+            this.FlashCardSetTemplateItemId = flashCardSetTemplateItemId;
+            this.OptionKey = optionKey;
+            this.OptionValue = optionValue;
+        }
+        public Guid? FlashCardSetTemplateItemOptionId { get; }
+        public Guid FlashCardSetTemplateItemId { get; }
+        public string OptionKey { get; }
+        public string OptionValue { get; }
+    }
+
 }
+
+

@@ -1,8 +1,16 @@
-namespace FlutterMessaging.DTO.ResponseDTOs;
-
-public class ChatRoomMemberResponse(Guid? chatRoomMemberId, Guid chatRoomId, Guid profileId)
+namespace FlutterMessaging.DTO.ResponseDTOs
 {
-    public Guid? ChatRoomMemberId { get; } = chatRoomMemberId;
-    public Guid ChatRoomId { get; } = chatRoomId;
-    public Guid ProfileId { get; } = profileId;
+    public class ChatRoomMemberResponse
+    {
+        public ChatRoomMemberResponse() { }
+        public ChatRoomMemberResponse(Guid? chatRoomMemberId, Guid chatRoomId, Guid profileId)
+        {
+            this.ChatRoomMemberId = chatRoomMemberId;
+            this.ChatRoomId = chatRoomId;
+            this.ProfileId = profileId;
+        }
+        public Guid? ChatRoomMemberId { get; }
+        public Guid ChatRoomId { get; }
+        public Guid ProfileId { get; }
+    }
 }

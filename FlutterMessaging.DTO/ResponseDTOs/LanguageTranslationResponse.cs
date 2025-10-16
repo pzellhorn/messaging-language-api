@@ -1,10 +1,20 @@
-namespace FlutterMessaging.DTO.ResponseDTOs;
-
-public class LanguageTranslationResponse(Guid? languageTranslationId, Guid fromLanguageId, Guid toLanguageId, string fromLanguageText, string toLanguageText)
+namespace FlutterMessaging.DTO.ResponseDTOs
 {
-    public Guid? LanguageTranslationId { get; } = languageTranslationId;
-    public Guid FromLanguageId { get; } = fromLanguageId;
-    public Guid ToLanguageId { get; } = toLanguageId;
-    public string FromLanguageText { get; } = fromLanguageText;
-    public string ToLanguageText { get; } = toLanguageText;
+    public class LanguageTranslationResponse
+    {
+        public LanguageTranslationResponse() { }
+        public LanguageTranslationResponse(Guid? languageTranslationId, Guid fromLanguageId, Guid toLanguageId, string fromLanguageText, string toLanguageText)
+        {
+            this.LanguageTranslationId = languageTranslationId;
+            this.FromLanguageId = fromLanguageId;
+            this.ToLanguageId = toLanguageId;
+            this.FromLanguageText = fromLanguageText;
+            this.ToLanguageText = toLanguageText;
+        }
+        public Guid? LanguageTranslationId { get; }
+        public Guid FromLanguageId { get; }
+        public Guid ToLanguageId { get; }
+        public string FromLanguageText { get; }
+        public string ToLanguageText { get; }
+    }
 }

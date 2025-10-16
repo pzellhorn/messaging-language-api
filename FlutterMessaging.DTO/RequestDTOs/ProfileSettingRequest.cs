@@ -1,7 +1,14 @@
-namespace FlutterMessaging.DTO.RequestDTOs;
-
-public class ProfileSettingRequest(Guid? profileSettingId, Guid profileId)
+namespace FlutterMessaging.DTO.RequestDTOs
 {
-    public Guid? ProfileSettingId { get; } = profileSettingId;
-    public Guid ProfileId { get; } = profileId;
-}
+    public class ProfileSettingRequest
+    {
+        public ProfileSettingRequest() { }
+        public ProfileSettingRequest(Guid? profileSettingId, Guid profileId)
+        {
+            this.ProfileSettingId = profileSettingId;
+            this.ProfileId = profileId;
+        }
+        public Guid? ProfileSettingId { get; }
+        public Guid ProfileId { get; }
+    }
+} 

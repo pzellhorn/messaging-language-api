@@ -1,7 +1,14 @@
-namespace FlutterMessaging.DTO.ResponseDTOs;
-
-public class ChatRoomResponse(Guid? chatRoomId, string name)
+namespace FlutterMessaging.DTO.ResponseDTOs
 {
-    public Guid? ChatRoomId { get; } = chatRoomId;
-    public string Name { get; } = name;
+    public class ChatRoomResponse
+    {
+        public ChatRoomResponse() { }
+        public ChatRoomResponse(Guid? chatRoomId, string name)
+        {
+            this.ChatRoomId = chatRoomId;
+            this.Name = name;
+        }
+        public Guid? ChatRoomId { get; }
+        public string Name { get; }
+    }
 }

@@ -1,8 +1,18 @@
-namespace FlutterMessaging.DTO.RequestDTOs;
-
-public class FlashCardSetTemplateItemRequest(Guid? flashCardSetTemplateItemId, Guid flashCardSetTemplateId, string question)
+namespace FlutterMessaging.DTO.RequestDTOs
 {
-    public Guid? FlashCardSetTemplateItemId { get; } = flashCardSetTemplateItemId;
-    public Guid FlashCardSetTemplateId { get; } = flashCardSetTemplateId;
-    public string Question { get; } = question;
+    public class FlashCardSetTemplateItemRequest
+    {
+        public FlashCardSetTemplateItemRequest() { }
+        public FlashCardSetTemplateItemRequest(Guid? flashCardSetTemplateItemId, Guid flashCardSetTemplateId, string question)
+        {
+            this.FlashCardSetTemplateItemId = flashCardSetTemplateItemId;
+            this.FlashCardSetTemplateId = flashCardSetTemplateId;
+            this.Question = question;
+        }
+        public Guid? FlashCardSetTemplateItemId { get; }
+        public Guid FlashCardSetTemplateId { get; }
+        public string Question { get; }
+    }
 }
+
+

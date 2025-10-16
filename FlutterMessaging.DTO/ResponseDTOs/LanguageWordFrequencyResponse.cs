@@ -1,9 +1,18 @@
-namespace FlutterMessaging.DTO.ResponseDTOs;
-
-public class LanguageWordFrequencyResponse(Guid? languageWordFrequencyId, Guid languageId, Guid languageTranslationId, int frequencyRank)
+namespace FlutterMessaging.DTO.ResponseDTOs
 {
-    public Guid? LanguageWordFrequencyId { get; } = languageWordFrequencyId;
-    public Guid LanguageId { get; } = languageId;
-    public Guid LanguageTranslationId { get; } = languageTranslationId;
-    public int FrequencyRank { get; } = frequencyRank;
+    public class LanguageWordFrequencyResponse
+    {
+        public LanguageWordFrequencyResponse() { }
+        public LanguageWordFrequencyResponse(Guid? languageWordFrequencyId, Guid languageId, Guid languageTranslationId, int frequencyRank)
+        {
+            this.LanguageWordFrequencyId = languageWordFrequencyId;
+            this.LanguageId = languageId;
+            this.LanguageTranslationId = languageTranslationId;
+            this.FrequencyRank = frequencyRank;
+        }
+        public Guid? LanguageWordFrequencyId { get; }
+        public Guid LanguageId { get; }
+        public Guid LanguageTranslationId { get; }
+        public int FrequencyRank { get; }
+    }
 }
