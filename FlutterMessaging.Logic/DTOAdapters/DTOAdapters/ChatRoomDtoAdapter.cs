@@ -9,8 +9,7 @@ namespace FlutterMessaging.Logic.DTOAdapters.DTOAdapters
     public class ChatRoomDtoAdapter(
         ChatRoomLogic chatRoomLogic,
         IDTOMapper<ChatRoom, ChatRoomRequest, ChatRoomResponse> mapper)
-        : DtoLogicAdapter<ChatRoom, ChatRoomRequest, ChatRoomResponse>(chatRoomLogic, mapper),
-          IChatRoomDtoAdapter
+        : DtoLogicAdapter<ChatRoom, ChatRoomRequest, ChatRoomResponse>(chatRoomLogic, mapper), IChatRoomDtoAdapter
     {
     }
 }
