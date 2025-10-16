@@ -9,8 +9,8 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.ProfileName = profileName;
             this.EmailAddress = emailAddress;
         }
-        public Guid? ProfileId { get; }
-        public string ProfileName { get; }
-        public string EmailAddress { get; }
+        public Guid? ProfileId { get; set; }
+        public string ProfileName { get; set; }
+        public string EmailAddress { get; set; }
     }
 }

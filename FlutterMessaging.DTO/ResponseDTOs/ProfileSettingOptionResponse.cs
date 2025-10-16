@@ -10,9 +10,9 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.OptionKey = optionKey;
             this.OptionValue = optionValue;
         }
-        public Guid? ProfileSettingOptionId { get; }
-        public Guid ProfileSettingId { get; }
-        public string OptionKey { get; }
-        public string OptionValue { get; }
+        public Guid? ProfileSettingOptionId { get; set; }
+        public Guid ProfileSettingId { get; set; }
+        public string OptionKey { get; set; }
+        public string OptionValue { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace FlutterMessaging.DTO.RequestDTOs
             this.ChatRoomId = chatRoomId;
             this.Name = name;
         }
-        public Guid? ChatRoomId { get; }
-        public string Name { get; }
+        public Guid? ChatRoomId { get; set; }
+        public string Name { get; set; }
     }
 
 } 

@@ -12,12 +12,12 @@ namespace FlutterMessaging.DTO.RequestDTOs
             this.IsActive = isActive;
             this.KeyVaultKeyId = keyVaultKeyId;
         }
-        public Guid? JwtKeyId { get; }
-        public string Kid { get; }
-        public string Alg { get; }
-        public string PublicKeyPem { get; }
-        public bool IsActive { get; }
-        public string? KeyVaultKeyId { get; }
+        public Guid? JwtKeyId { get; set; }
+        public string Kid { get; set; }
+        public string Alg { get; set; }
+        public string PublicKeyPem { get; set; }
+        public bool IsActive { get; set; }
+        public string? KeyVaultKeyId { get; set; }
     }
 }
 

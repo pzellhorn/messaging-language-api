@@ -10,10 +10,10 @@ namespace FlutterMessaging.DTO.RequestDTOs
             this.ChatRoomId = chatRoomId;
             this.MessageText = messageText;
         }
-        public Guid? ChatRoomMessageId { get; }
-        public Guid ProfileId { get; }
-        public Guid ChatRoomId { get; }
-        public string MessageText { get; }
+        public Guid? ChatRoomMessageId { get; set; }
+        public Guid ProfileId { get; set; }
+        public Guid ChatRoomId { get; set; }
+        public string MessageText { get; set; }
     }
  
 }

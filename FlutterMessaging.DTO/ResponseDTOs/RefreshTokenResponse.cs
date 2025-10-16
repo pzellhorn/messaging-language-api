@@ -13,12 +13,12 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.RevokedAt = revokedAt;
             this.ReplacedById = replacedById;
         }
-        public Guid? RefreshTokenId { get; }
-        public Guid SessionId { get; }
-        public string TokenHash { get; }
-        public string TokenSalt { get; }
-        public DateTime ExpiresAt { get; }
-        public DateTime? RevokedAt { get; }
-        public Guid? ReplacedById { get; }
+        public Guid? RefreshTokenId { get; set; }
+        public Guid SessionId { get; set; }
+        public string TokenHash { get; set; }
+        public string TokenSalt { get; set; }
+        public DateTime ExpiresAt { get; set; }
+        public DateTime? RevokedAt { get; set; }
+        public Guid? ReplacedById { get; set; }
     }
 }

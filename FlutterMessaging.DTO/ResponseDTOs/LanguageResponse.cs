@@ -8,7 +8,7 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.LanguageId = languageId;
             this.Name = name;
         }
-        public Guid? LanguageId { get; }
-        public string Name { get; }
+        public Guid? LanguageId { get; set; }
+        public string Name { get; set; }
     }
 }

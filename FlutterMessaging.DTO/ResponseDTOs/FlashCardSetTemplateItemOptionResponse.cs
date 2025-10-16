@@ -10,9 +10,9 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.OptionKey = optionKey;
             this.OptionValue = optionValue;
         }
-        public Guid? FlashCardSetTemplateItemOptionId { get; }
-        public Guid FlashCardSetTemplateItemId { get; }
-        public string OptionKey { get; }
-        public string OptionValue { get; }
+        public Guid? FlashCardSetTemplateItemOptionId { get; set; }
+        public Guid FlashCardSetTemplateItemId { get; set; }
+        public string OptionKey { get; set; }
+        public string OptionValue { get; set; }
     }
 }

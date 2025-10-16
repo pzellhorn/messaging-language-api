@@ -11,10 +11,10 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.Subject = subject;
             this.Issuer = issuer;
         }
-        public Guid? ExternalIdentityId { get; }
-        public Guid ProfileId { get; }
-        public string Provider { get; }
-        public string Subject { get; }
-        public string Issuer { get; }
+        public Guid? ExternalIdentityId { get; set; }
+        public Guid ProfileId { get; set; }
+        public string Provider { get; set; }
+        public string Subject { get; set; }
+        public string Issuer { get; set; }
     }
 }

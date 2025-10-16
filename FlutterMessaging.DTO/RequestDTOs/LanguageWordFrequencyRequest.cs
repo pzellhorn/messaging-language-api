@@ -10,10 +10,10 @@ namespace FlutterMessaging.DTO.RequestDTOs
             this.LanguageTranslationId = languageTranslationId;
             this.FrequencyRank = frequencyRank;
         }
-        public Guid? LanguageWordFrequencyId { get; }
-        public Guid LanguageId { get; }
-        public Guid LanguageTranslationId { get; }
-        public int FrequencyRank { get; }
+        public Guid? LanguageWordFrequencyId { get; set; }
+        public Guid LanguageId { get; set; }
+        public Guid LanguageTranslationId { get; set; }
+        public int FrequencyRank { get; set; }
     }
 
 }

@@ -9,8 +9,8 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.FlashCardSetTemplateId = flashCardSetTemplateId;
             this.Question = question;
         }
-        public Guid? FlashCardSetTemplateItemId { get; }
-        public Guid FlashCardSetTemplateId { get; }
-        public string Question { get; }
+        public Guid? FlashCardSetTemplateItemId { get; set; }
+        public Guid FlashCardSetTemplateId { get; set; }
+        public string Question { get; set; }
     }
 }

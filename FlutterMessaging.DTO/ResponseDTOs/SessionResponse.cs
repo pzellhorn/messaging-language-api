@@ -12,11 +12,11 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.IpAddress = ipAddress;
             this.RevokedAt = revokedAt;
         }
-        public Guid? SessionId { get; }
-        public Guid ProfileId { get; }
-        public string? DeviceInfo { get; }
-        public string? UserAgent { get; }
-        public string? IpAddress { get; }
-        public DateTime? RevokedAt { get; }
+        public Guid? SessionId { get; set; }
+        public Guid ProfileId { get; set; }
+        public string? DeviceInfo { get; set; }
+        public string? UserAgent { get; set; }
+        public string? IpAddress { get; set; }
+        public DateTime? RevokedAt { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.FlashCardSetName = flashCardSetName;
             this.FlashCardType = flashCardType;
         }
-        public Guid? FlashCardSetTemplateId { get; }
-        public string FlashCardSetName { get; }
-        public int FlashCardType { get; }
+        public Guid? FlashCardSetTemplateId { get; set; }
+        public string FlashCardSetName { get; set; }
+        public int FlashCardType { get; set; }
     }
 }

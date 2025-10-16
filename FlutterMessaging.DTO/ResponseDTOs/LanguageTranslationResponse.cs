@@ -11,10 +11,10 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.FromLanguageText = fromLanguageText;
             this.ToLanguageText = toLanguageText;
         }
-        public Guid? LanguageTranslationId { get; }
-        public Guid FromLanguageId { get; }
-        public Guid ToLanguageId { get; }
-        public string FromLanguageText { get; }
-        public string ToLanguageText { get; }
+        public Guid? LanguageTranslationId { get; set; }
+        public Guid FromLanguageId { get; set; }
+        public Guid ToLanguageId { get; set; }
+        public string FromLanguageText { get; set; }
+        public string ToLanguageText { get; set; }
     }
 }

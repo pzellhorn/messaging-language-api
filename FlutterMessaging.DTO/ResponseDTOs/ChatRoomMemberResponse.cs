@@ -9,8 +9,8 @@ namespace FlutterMessaging.DTO.ResponseDTOs
             this.ChatRoomId = chatRoomId;
             this.ProfileId = profileId;
         }
-        public Guid? ChatRoomMemberId { get; }
-        public Guid ChatRoomId { get; }
-        public Guid ProfileId { get; }
+        public Guid? ChatRoomMemberId { get; set; }
+        public Guid ChatRoomId { get; set; }
+        public Guid ProfileId { get; set; }
     }
 }
