@@ -2,7 +2,6 @@
 using FlutterMessaging.State.Base.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FlutterMessaging.State.Data
 {

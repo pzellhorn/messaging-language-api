@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class LanguageTranslationRequest(Guid? languageTranslationId, Guid fromLanguageId, Guid toLanguageId, string fromLanguageText, string toLanguageText)

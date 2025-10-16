@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class JwtKeyRequest(Guid? jwtKeyId, string kid, string alg, string publicKeyPem, bool isActive, string? keyVaultKeyId)

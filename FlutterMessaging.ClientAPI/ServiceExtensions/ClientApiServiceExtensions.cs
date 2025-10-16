@@ -1,5 +1,4 @@
-﻿using System.Net;
-using FlutterMessaging.ClientAPI.Base;
+﻿using FlutterMessaging.ClientAPI.Base;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlutterMessaging.ClientAPI.ServiceExtensions

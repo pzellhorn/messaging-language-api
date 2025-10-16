@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.ResponseDTOs;
 
 public class FlashCardSetTemplateItemOptionResponse(Guid? flashCardSetTemplateItemOptionId, Guid flashCardSetTemplateItemId, string optionKey, string optionValue)

@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.ResponseDTOs;
 
 public class ExternalIdentityResponse(Guid? externalIdentityId, Guid profileId, string provider, string subject, string issuer)

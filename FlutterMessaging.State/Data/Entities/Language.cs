@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 using FlutterMessaging.State.Base.Interfaces;
 using FlutterMessaging.State.Base;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlutterMessaging.State.Data.Entities
-{ 
+{
     public class Language : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeySelector<Language>
     {
         public Guid LanguageId { get; set; }

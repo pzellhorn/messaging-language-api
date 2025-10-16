@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class SessionRequest(Guid? sessionId, Guid profileId, string? deviceInfo, string? userAgent, string? ipAddress, DateTime? revokedAt)

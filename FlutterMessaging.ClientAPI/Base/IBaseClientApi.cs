@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlutterMessaging.ClientAPI.Base
+﻿namespace FlutterMessaging.ClientAPI.Base
 {
     public interface IBaseClientApi<TReq, TRes>
     {

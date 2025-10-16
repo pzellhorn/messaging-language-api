@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class FlashCardAnswerRequest(Guid? flashCardAnswerId, Guid flashCardSetTemplateItemId, Guid profileId, string answer)

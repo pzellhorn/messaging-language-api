@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class RefreshTokenRequest(Guid? refreshTokenId, Guid sessionId, string tokenHash, string tokenSalt, DateTime expiresAt, DateTime? revokedAt, Guid? replacedById)

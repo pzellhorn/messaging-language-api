@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FlutterMessaging.ClientAPI.Base;
-using FlutterMessaging.State.Data.Entities; 
+﻿using FlutterMessaging.ClientAPI.Base;
 using FlutterMessaging.DTO.RequestDTOs;
 using FlutterMessaging.DTO.ResponseDTOs;
 

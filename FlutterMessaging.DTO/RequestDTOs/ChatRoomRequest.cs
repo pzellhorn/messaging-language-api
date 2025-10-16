@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class ChatRoomRequest(Guid? chatRoomId, string name)

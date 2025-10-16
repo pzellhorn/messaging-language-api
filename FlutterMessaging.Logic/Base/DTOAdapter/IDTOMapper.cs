@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlutterMessaging.Logic.Base.DTOAdapter
+﻿namespace FlutterMessaging.Logic.Base.DTOAdapter
 {
     public interface IDTOMapper<TEntity, TReq, TRes>
     {

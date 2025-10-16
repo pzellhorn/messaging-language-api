@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class ProfileRequest(Guid? profileId, string profileName, string emailAddress)

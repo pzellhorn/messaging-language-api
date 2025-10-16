@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using FlutterMessaging.State.Base.Interfaces;
 using FlutterMessaging.State.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace FlutterMessaging.State.Base
 {

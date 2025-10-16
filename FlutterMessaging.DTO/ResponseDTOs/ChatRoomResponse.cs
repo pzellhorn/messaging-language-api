@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.ResponseDTOs;
 
 public class ChatRoomResponse(Guid? chatRoomId, string name)

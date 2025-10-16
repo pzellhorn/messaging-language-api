@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FlutterMessaging.ClientAPI.Types
-{ 
+﻿namespace FlutterMessaging.ClientAPI.Types
+{
     internal sealed class ErrorDetails
     {
         public string? Type { get; set; }

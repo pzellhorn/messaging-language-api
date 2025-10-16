@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.ResponseDTOs;
 
 public class ProfileSettingResponse(Guid? profileSettingId, Guid profileId)

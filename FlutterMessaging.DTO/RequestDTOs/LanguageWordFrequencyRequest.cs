@@ -1,5 +1,3 @@
-using System;
-
 namespace FlutterMessaging.DTO.RequestDTOs;
 
 public class LanguageWordFrequencyRequest(Guid? languageWordFrequencyId, Guid languageId, Guid languageTranslationId, int frequencyRank)

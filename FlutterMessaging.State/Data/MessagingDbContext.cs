@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FlutterMessaging.State.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace FlutterMessaging.State.Data;
 
