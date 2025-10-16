@@ -14,7 +14,7 @@ namespace FlutterMessaging.Logic
 {
     public class ExternalIdentityLogic(IBaseRepository<ExternalIdentity> externalIdentityRepository, IBaseRepository<Profile> profileRepository) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
     {
-        public async Task<Profile> AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken)
+        public async Task AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken)
         {
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings
             {
@@ -67,7 +67,6 @@ namespace FlutterMessaging.Logic
 
 
             //return token - NYI, return profile for now.
-            return profile; 
         }
     }
 }

@@ -8,7 +8,7 @@ namespace FlutterMessaging.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FlashCardAnswerController(IFlashCardAnswerDtoAdapter logic) : BaseController<FlashCardAnswerRequest, FlashCardAnswerResponse>(logic)
+    public class FlashCardSetTemplateOptionController(IFlashCardSetTemplateItemOptionDtoAdapter logic) : BaseController<FlashCardSetTemplateItemOptionRequest, FlashCardSetTemplateItemOptionResponse>(logic)
     {
     }
 }

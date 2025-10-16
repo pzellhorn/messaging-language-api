@@ -1,13 +1,11 @@
-﻿using FlutterMessaging.Logic.Base;
-using FlutterMessaging.Logic.Base.DTOAdapter;
-using FlutterMessaging.State.Base.Interfaces;
+﻿using FlutterMessaging.Logic.Base.DTOAdapter;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlutterMessaging.API.Controllers.Base
 {
     [ApiController]
     public abstract class BaseController<TReq, TRes>(
-    DTOAdapter<TReq, TRes> logic) : ControllerBase
+    IDtoLogicAdapter<TReq, TRes> logic) : ControllerBase
     {
         [HttpGet(nameof(Get))]
         public async Task<ActionResult<TRes>> Get(Guid id, CancellationToken cancellationToken)

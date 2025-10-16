@@ -7,10 +7,10 @@ using FlutterMessaging.State.Base.Interfaces;
 
 namespace FlutterMessaging.Logic.Base.DTOAdapter
 {
-    public sealed class DtoLogicAdapter<TEntity, TReq, TRes>(
+    public class DtoLogicAdapter<TEntity, TReq, TRes>(
      IBaseLogic<TEntity> logic,
      IDTOMapper<TEntity, TReq, TRes> mapper)
-     : DTOAdapter<TReq, TRes>
+     : IDtoLogicAdapter<TReq, TRes>
      where TEntity : class, IIsDeleted, IPrimaryKeySelector<TEntity>
     {
         public async Task<TRes?> Get(Guid id, CancellationToken cancellationToken = default)

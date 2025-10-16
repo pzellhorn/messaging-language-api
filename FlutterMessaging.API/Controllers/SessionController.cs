@@ -1,16 +1,14 @@
-﻿using FlutterMessaging.API.Controllers.Base;
-using FlutterMessaging.Logic;
-using FlutterMessaging.State.Data.Entities;
+using FlutterMessaging.API.Controllers.Base;
+using FlutterMessaging.DTO.DTOAdapters.Interfaces;
+using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlutterMessaging.API.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
-    public class SessionController(SessionLogic sessionLogic) : BaseController<Session>(sessionLogic)
+    public class SessionController(ISessionDtoAdapter logic) : BaseController<SessionRequest, SessionResponse>(logic)
     {
-
-
     }
 }

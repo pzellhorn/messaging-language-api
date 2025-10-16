@@ -1,0 +1,13 @@
+﻿using FlutterMessaging.DTO.RequestDTOs;
+using FlutterMessaging.DTO.ResponseDTOs;
+using FlutterMessaging.Logic.Base.DTOAdapter;
+
+namespace FlutterMessaging.DTO.DTOAdapters.Interfaces
+{
+    public interface IExternalIdentityDtoAdapter
+     : IDtoLogicAdapter<ExternalIdentityRequest, ExternalIdentityResponse>
+    {
+        Task AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken);
+    }
+
+}

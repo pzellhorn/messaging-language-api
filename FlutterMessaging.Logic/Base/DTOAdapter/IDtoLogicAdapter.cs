@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlutterMessaging.Logic.Base.DTOAdapter
 {
-    public interface DTOAdapter<TReq, TRes>
+    public interface IDtoLogicAdapter<TReq, TRes>
     {
         Task<TRes?> Get(Guid id, CancellationToken cancellationToken = default);
         Task<TRes> Upsert(TReq request, CancellationToken cancellationToken = default);
