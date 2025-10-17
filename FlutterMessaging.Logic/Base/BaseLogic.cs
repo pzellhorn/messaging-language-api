@@ -13,7 +13,7 @@ namespace FlutterMessaging.Logic.Base
         public async Task<bool> Delete(Guid id, CancellationToken cancellationToken = default)
             => await baseRepository.Delete(id, cancellationToken);
 
-        public async Task<List<T>> GetFor<TKey>(TKey key, Expression<Func<T, TKey>> property, CancellationToken cancellationToken = default, bool excludeSoftDelete = true)
-            => await baseRepository.GetFor(key, property, cancellationToken, excludeSoftDelete);
+        public async Task<List<T>> GetFor<TKey>(TKey key, Expression<Func<T, TKey>> property, CancellationToken cancellationToken = default)
+            => await baseRepository.GetFor(key, property, cancellationToken);
     }
 }

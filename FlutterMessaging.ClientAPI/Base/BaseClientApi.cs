@@ -29,6 +29,9 @@ namespace FlutterMessaging.ClientAPI.Base
         public Task<TRes> Upsert(TReq request, CancellationToken cancellationToken = default)
             => api.Post<TReq, TRes>(ActionUrl(nameof(Upsert)), request, cancellationToken);
 
+        public Task<List<TRes>> UpsertMany(List<TReq> requests, CancellationToken cancellationToken = default)
+            => api.Post<List<TReq>, List<TRes>>(ActionUrl(nameof(UpsertMany)), requests, cancellationToken);
+
         public async Task<bool> Delete(Guid id, CancellationToken cancellationToken = default)
         {
             var resp = await api.Delete(ActionUrl(nameof(Delete), ("id", id.ToString())), cancellationToken);
