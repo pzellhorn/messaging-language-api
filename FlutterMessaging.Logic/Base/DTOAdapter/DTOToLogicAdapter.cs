@@ -1,4 +1,7 @@
-﻿using FlutterMessaging.State.Base.Interfaces;
+﻿using System.Globalization;
+using System.Linq.Expressions;
+using System.Reflection;
+using FlutterMessaging.State.Base.Interfaces;
 
 namespace FlutterMessaging.Logic.Base.DTOAdapter
 {
@@ -27,8 +30,53 @@ namespace FlutterMessaging.Logic.Base.DTOAdapter
             } 
 
             return mapper.ToResponse(await logic.Upsert(entity, cancellationToken));
+        } 
+
+        public Task<bool> Delete(Guid id, CancellationToken cancellationToken = default) => logic.Delete(id, cancellationToken);
+
+        public async Task<List<TRes>> GetFor(string key, string property, CancellationToken cancellationToken = default)
+        {
+            PropertyInfo prop = typeof(TEntity).GetProperty(property, BindingFlags.Instance| BindingFlags.Public | BindingFlags.IgnoreCase)
+                ?? throw new ArgumentException($"Property '{property}' not found on entity '{typeof(TEntity).Name}'.", nameof(property)); 
+
+            ParameterExpression param = Expression.Parameter(typeof(TEntity), "e");
+            Type type = typeof(Func<,>).MakeGenericType(typeof(TEntity), prop.PropertyType);
+            LambdaExpression typedLambda = Expression.Lambda(type, Expression.Property(param, prop), param);
+
+            MethodInfo getForMethod = typeof(IBaseLogic<TEntity>).GetMethod("GetFor")!;
+            MethodInfo createdGetFor = getForMethod.MakeGenericMethod(prop.PropertyType);
+
+            Task<List<TEntity>> task = 
+                (Task<List<TEntity>>)createdGetFor.Invoke(logic, new object[] { ConvertKeyString(key, prop.PropertyType), typedLambda, cancellationToken });
+
+            List<TEntity> entities = await task;
+            return entities.Select(mapper.ToResponse).ToList();
         }
 
-        public Task<bool> Delete(Guid id, CancellationToken cancellationToken = default) => logic.Delete(id, cancellationToken); 
+        private static object ConvertKeyString(string key, Type targetType)
+        {
+            Type? underlying = Nullable.GetUnderlyingType(targetType);
+            if (underlying != null)
+            {
+                if (string.IsNullOrWhiteSpace(key)) return null;
+                return ConvertKeyString(key, underlying);
+
+            }
+            if (targetType == typeof(string)) return key;
+            if (targetType == typeof(Guid)) return Guid.Parse(key);
+            if (targetType.IsEnum) return Enum.Parse(targetType, key, ignoreCase: true);
+
+            if (targetType == typeof(int)) return int.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(long)) return long.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(short)) return short.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(byte)) return byte.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(bool)) return bool.Parse(key);
+            if (targetType == typeof(decimal)) return decimal.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(double)) return double.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(float)) return float.Parse(key, CultureInfo.InvariantCulture);
+            if (targetType == typeof(DateTime)) return DateTime.Parse(key, CultureInfo.InvariantCulture);
+
+            return Convert.ChangeType(key, targetType, CultureInfo.InvariantCulture)!;
+        }
     }
 }

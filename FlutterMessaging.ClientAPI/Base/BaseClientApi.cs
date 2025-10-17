@@ -23,6 +23,9 @@ namespace FlutterMessaging.ClientAPI.Base
         public Task<TRes?> Get(Guid id, CancellationToken cancellationToken = default)
            => api.Get<TRes?>(ActionUrl(nameof(Get), ("id", id.ToString())), cancellationToken);
 
+        public Task<List<TRes>> GetFor(string key, string propertyName, CancellationToken cancellationToken = default)
+            => api.Get<List<TRes>>(ActionUrl(nameof(GetFor),("key", key), ("propertyName", propertyName)),cancellationToken);
+
         public Task<TRes> Upsert(TReq request, CancellationToken cancellationToken = default)
             => api.Post<TReq, TRes>(ActionUrl(nameof(Upsert)), request, cancellationToken);
 
