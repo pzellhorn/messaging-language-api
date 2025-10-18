@@ -1,8 +1,14 @@
+using System.Text;
+using FlutterMessaging.ClientAPI.ServiceExtensions;
+using FlutterMessaging.DTO.Security;
+using FlutterMessaging.Logic.ServiceExtensions;
+using FlutterMessaging.Logic.ServiceLogic;
 using FlutterMessaging.State.Data;
 using FlutterMessaging.State.Extensions;
-using FlutterMessaging.Logic.ServiceExtensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using FlutterMessaging.ClientAPI.ServiceExtensions;
+using Microsoft.IdentityModel.Tokens;
+using DotNetEnv;
 
 namespace FlutterMessagingApi
 {
@@ -10,9 +16,43 @@ namespace FlutterMessagingApi
     {
         public static void Main(string[] args)
         {
+            Env.Load();
             var builder = WebApplication.CreateBuilder(args);
 
             Uri baseAddress = new("http://localhost:5064/");
+
+            builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
+
+            //JWT
+            if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:SigningKey"]))
+                throw new ArgumentNullException("Failed to find Jwt:SigningKey in .env");
+
+            byte[] signingKeyBytes = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"]);  
+
+            SymmetricSecurityKey securityKey = new SymmetricSecurityKey(signingKeyBytes);
+
+            builder.Services.AddSingleton(new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256));
+            builder.Services.AddSingleton<ITokenIssuer, JwtTokenIssuer>();
+
+            builder.Services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(bearer =>
+                {
+                    bearer.RequireHttpsMetadata = false;
+                    bearer.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = securityKey,
+                        RequireSignedTokens = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ClockSkew = TimeSpan.FromSeconds(30)
+                    };
+                }); 
+
 
             // Add services to the container. 
             builder.Services.AddControllers();
@@ -27,16 +67,13 @@ namespace FlutterMessagingApi
             builder.Services.AddLogic();
             builder.Services.AddClientApiExtensions(baseAddress);
 
+            builder.Services.AddAuthorization();
 
-            var app = builder.Build(); 
-             
 
-            // Configure the HTTP request pipeline.
+            var app = builder.Build();
 
-            //app.UseHttpsRedirection();
-
-            //app.UseAuthorization();
-
+            app.UseAuthentication();
+            app.UseAuthorization();  
 
             app.MapControllers();
 

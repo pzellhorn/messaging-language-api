@@ -12,12 +12,11 @@ namespace FlutterMessaging.API.Controllers
     public class ExternalIdentityController(IExternalIdentityDtoAdapter logic) : BaseController<ExternalIdentityRequest, ExternalIdentityResponse>(logic)
     {
         [HttpPost(nameof(AuthenticateWithGoogle))]
-        public async Task<ActionResult> AuthenticateWithGoogle(
+        public async Task<ActionResult<string>> AuthenticateWithGoogle(
             [FromBody] AuthRequest request,
             CancellationToken cancellationToken = default)
-        {
-            await logic.AuthenticateWithGoogle(request.Token, "", cancellationToken);
-            return Ok();
+        { 
+            return Ok(await logic.AuthenticateWithGoogle(request.Token, "", request.deviceId, cancellationToken));
         }
     }
 }

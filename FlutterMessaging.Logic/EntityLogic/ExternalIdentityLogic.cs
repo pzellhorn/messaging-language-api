@@ -1,15 +1,25 @@
-﻿using FlutterMessaging.Logic.Base;
+﻿using FlutterMessaging.DTO.Security;
+using FlutterMessaging.Logic.Base;
+using FlutterMessaging.Logic.ServiceLogic;
 using FlutterMessaging.State.Base.Interfaces;
 using FlutterMessaging.State.Data.Entities;
 using Google.Apis.Auth;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 
-namespace FlutterMessaging.Logic
+namespace FlutterMessaging.Logic.EntityLogic
 {
-    public class ExternalIdentityLogic(IBaseRepository<ExternalIdentity> externalIdentityRepository, IBaseRepository<Profile> profileRepository) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
+    public class ExternalIdentityLogic(
+      IBaseRepository<ExternalIdentity> externalIdentityRepository,
+      IBaseRepository<Profile> profileRepository,
+      ITokenIssuer tokenIssuer,
+      IOptions<JwtOptions> jwtOptions,
+      SigningCredentials signingCredentials
+  ) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
     {
-        public async Task AuthenticateWithGoogle(string token, string nonce, CancellationToken cancellationToken)
-        {
+        public async Task<string> AuthenticateWithGoogle(string token, string nonce, string deviceId,  CancellationToken cancellationToken)
+        { 
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings
             {
                 Audience = new[] { "535701860749-k1dkt8jpjtek3t9td9kkvpcqohaomeun.apps.googleusercontent.com" }
@@ -57,10 +67,11 @@ namespace FlutterMessaging.Logic
 
 
             //Mint token for user authentication
+            JwtOptions options = jwtOptions.Value;
 
+            string mintedToken = tokenIssuer.IssueAccessToken(profile.ProfileId, deviceId, options.Audience, TimeSpan.FromMinutes(options.AccessTokenMinutes), signingCredentials);
 
-
-            //return token - NYI, return profile for now.
+            return mintedToken; 
         }
     }
 }

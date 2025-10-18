@@ -5,6 +5,7 @@ using FlutterMessaging.Logic.Base;
 using FlutterMessaging.Logic.Base.DTOAdapter;
 using FlutterMessaging.Logic.DTOAdapters.DTOAdapters;
 using FlutterMessaging.Logic.DTOMappers;
+using FlutterMessaging.Logic.EntityLogic;
 using FlutterMessaging.State.Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -86,10 +87,7 @@ namespace FlutterMessaging.Logic.ServiceExtensions
             services.AddScoped<IDTOMapper<Session, SessionRequest, SessionResponse>, SessionMapper>();
             services.AddScoped<ISessionDtoAdapter, SessionDtoAdapter>();
 
-            return services;
-
-
-            return services;
+            return services; 
         }
     } 
 }
