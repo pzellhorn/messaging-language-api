@@ -1,6 +1,5 @@
 using System.Text;
 using FlutterMessaging.ClientAPI.ServiceExtensions;
-using FlutterMessaging.DTO.Security;
 using FlutterMessaging.Logic.ServiceExtensions;
 using FlutterMessaging.Logic.ServiceLogic;
 using FlutterMessaging.State.Data;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using DotNetEnv;
+using FlutterMessaging.DTO.Types;
 
 namespace FlutterMessagingApi
 {
@@ -26,6 +26,13 @@ namespace FlutterMessagingApi
             //JWT
             if (string.IsNullOrWhiteSpace(builder.Configuration["Jwt:SigningKey"]))
                 throw new ArgumentNullException("Failed to find Jwt:SigningKey in .env");
+
+            builder.Services.Configure<RefreshTokenOptions>(builder.Configuration.GetSection("RefreshToken"));
+            builder.Services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
+
+            string? pepper = builder.Configuration["RefreshToken:Pepper"];
+            if (string.IsNullOrWhiteSpace(pepper))
+                Console.WriteLine("RefreshToken pepper not set; using SHA-256 fallback (dev only)."); 
 
             byte[] signingKeyBytes = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"]);  
 

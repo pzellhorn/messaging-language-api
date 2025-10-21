@@ -1,4 +1,4 @@
-﻿using FlutterMessaging.DTO;
+﻿using FlutterMessaging.DTO.Types;
 
 namespace FlutterMessagingApi.Interfaces
 {

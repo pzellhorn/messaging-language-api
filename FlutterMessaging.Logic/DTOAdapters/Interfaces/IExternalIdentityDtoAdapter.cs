@@ -7,7 +7,8 @@ namespace FlutterMessaging.DTO.DTOAdapters.Interfaces
     public interface IExternalIdentityDtoAdapter
      : IDtoLogicAdapter<ExternalIdentityRequest, ExternalIdentityResponse>
     {
-        Task<string> AuthenticateWithGoogle(string token, string nonce, string deviceId, CancellationToken cancellationToken);
+        Task<AuthTokenResponse> AuthenticateWithGoogle(string token, string nonce, string deviceId, CancellationToken cancellationToken);
+        Task<AuthTokenResponse> RotateRefreshToken(Guid sessionId, string refreshToken, CancellationToken cancellationToken);
     }
 
 }

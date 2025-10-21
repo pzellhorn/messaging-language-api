@@ -1,5 +1,7 @@
 **Running PostgreSQL database using Docker Compose**
 
+**Run in same folder as docker-compose.yaml (should be same path as this readme) **
+
 Windows:  
 1\. Start postgres pod
 docker compose up -d 

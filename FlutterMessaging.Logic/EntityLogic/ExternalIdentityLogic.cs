@@ -1,4 +1,5 @@
-﻿using FlutterMessaging.DTO.Security;
+﻿    using FlutterMessaging.DTO.ResponseDTOs;
+using FlutterMessaging.DTO.Types;
 using FlutterMessaging.Logic.Base;
 using FlutterMessaging.Logic.ServiceLogic;
 using FlutterMessaging.State.Base.Interfaces;
@@ -11,14 +12,17 @@ using Microsoft.IdentityModel.Tokens;
 namespace FlutterMessaging.Logic.EntityLogic
 {
     public class ExternalIdentityLogic(
-      IBaseRepository<ExternalIdentity> externalIdentityRepository,
-      IBaseRepository<Profile> profileRepository,
-      ITokenIssuer tokenIssuer,
-      IOptions<JwtOptions> jwtOptions,
-      SigningCredentials signingCredentials
-  ) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
+     IBaseRepository<ExternalIdentity> externalIdentityRepository,
+     IBaseRepository<Profile> profileRepository,
+     IBaseRepository<Session> sessionRepository,
+     IBaseRepository<RefreshToken> refreshTokenRepository,
+     ITokenIssuer tokenIssuer,
+     IOptions<JwtOptions> jwtOptions,
+     SigningCredentials signingCredentials,
+     IRefreshTokenService refreshTokenService
+ ) : BaseLogic<ExternalIdentity>(externalIdentityRepository)
     {
-        public async Task<string> AuthenticateWithGoogle(string token, string nonce, string deviceId,  CancellationToken cancellationToken)
+        public async Task<AuthTokenResponse> AuthenticateWithGoogle(string token, string nonce, string deviceId,  CancellationToken cancellationToken)
         { 
             GoogleJsonWebSignature.ValidationSettings settings = new GoogleJsonWebSignature.ValidationSettings
             {
@@ -65,13 +69,113 @@ namespace FlutterMessaging.Logic.EntityLogic
                 await externalIdentityRepository.Upsert(newIdentity, cancellationToken);
             }
 
+            //generate our access token & refresh token
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+            Session session = new()
+            {
+                SessionId = Guid.NewGuid(),
+                ProfileId = profile.ProfileId,
+                DeviceId = deviceId,
+                CreatedAt = now.UtcDateTime,
+                LastSeenAt = now.UtcDateTime,
+                RevokedAt = null,
+                IsDeleted = false
+            };
 
-            //Mint token for user authentication
-            JwtOptions options = jwtOptions.Value;
+            session = await sessionRepository.Upsert(session, cancellationToken);
+             
+            (string refreshToken, RefreshToken refreshEntity) = refreshTokenService.Create(session.SessionId, now);
+            await refreshTokenRepository.Upsert(refreshEntity, cancellationToken);
 
-            string mintedToken = tokenIssuer.IssueAccessToken(profile.ProfileId, deviceId, options.Audience, TimeSpan.FromMinutes(options.AccessTokenMinutes), signingCredentials);
+            string accessToken = tokenIssuer.IssueAccessToken(profile.ProfileId, deviceId, jwtOptions.Value.Audience, TimeSpan.FromMinutes(jwtOptions.Value.AccessTokenMinutes), signingCredentials);
+             
+            AuthTokenResponse authToken = new()
+            {
+                AccessToken = accessToken,
+                AccessTokenExpiresAt = now.AddMinutes(jwtOptions.Value.AccessTokenMinutes).UtcDateTime,
+                RefreshToken = refreshToken, 
+                RefreshTokenExpiresAt = refreshEntity.ExpiresAt,
+                SessionId = session.SessionId
+            };
 
-            return mintedToken; 
+            return authToken; 
+        }
+
+        public async Task<AuthTokenResponse> RotateRefreshToken(Guid sessionId, string refreshToken, CancellationToken cancellationToken)
+        {
+            DateTimeOffset now = DateTimeOffset.UtcNow;
+
+            List<Session> sessions = await sessionRepository.GetFor(sessionId, x => x.SessionId, cancellationToken);
+            Session? session = sessions.FirstOrDefault();
+            
+            if (session == null || session.RevokedAt != null)
+                throw new UnauthorizedAccessException("Invalid session.");
+
+            List<RefreshToken> tokens = await refreshTokenRepository.GetFor(sessionId, x => x.SessionId, cancellationToken);
+            if (tokens.Count == 0)
+                throw new UnauthorizedAccessException("No refresh token found for session.");
+             
+            RefreshToken? matchingRefreshToken = null;
+            foreach (RefreshToken token in tokens)
+            {
+                if (refreshTokenService.Verify(refreshToken, token.TokenSalt, token.TokenHash))
+                {
+                    matchingRefreshToken = token;
+                    break;
+                }
+            }
+
+            if (matchingRefreshToken == null)
+                throw new UnauthorizedAccessException("Invalid refresh token.");
+
+            if (matchingRefreshToken.ExpiresAt <= now.UtcDateTime)
+                throw new UnauthorizedAccessException("Refresh token expired.");
+
+            if (matchingRefreshToken.RevokedAt != null)
+            {
+                //We've revoked this refresh token, now revoke the session and tokens within that session
+                session.RevokedAt = now.UtcDateTime;
+                await sessionRepository.Upsert(session, cancellationToken);
+
+                foreach (RefreshToken token in tokens.Where(x => x.RevokedAt == null))
+                {
+                    token.RevokedAt = now.UtcDateTime;
+                    token.ModifiedAt = now.UtcDateTime;
+                    await refreshTokenRepository.Upsert(token, cancellationToken);
+                }
+
+                throw new UnauthorizedAccessException("Refresh token revoked.");
+            }
+
+            //Make a new refresh token and revoke the old one
+            (string newTokenString, RefreshToken newToken) = refreshTokenService.Create(session.SessionId, now); 
+             
+            newToken = await refreshTokenRepository.Upsert(newToken, cancellationToken);
+
+            matchingRefreshToken.RevokedAt = now.UtcDateTime;
+            matchingRefreshToken.ReplacedById = newToken.RefreshTokenId;
+            matchingRefreshToken.ModifiedAt = now.UtcDateTime;
+            await refreshTokenRepository.Upsert(matchingRefreshToken, cancellationToken);
+
+            string accessToken = tokenIssuer.IssueAccessToken(
+                profileId: session.ProfileId,
+                deviceId: session.DeviceId, 
+                audience: jwtOptions.Value.Audience,
+                lifetime: TimeSpan.FromMinutes(jwtOptions.Value.AccessTokenMinutes),
+                signingCredentials: signingCredentials
+            );
+             
+            session.LastSeenAt = now.UtcDateTime;
+            await sessionRepository.Upsert(session, cancellationToken);
+
+            return new AuthTokenResponse
+            {
+                AccessToken = accessToken,
+                AccessTokenExpiresAt = now.AddMinutes(jwtOptions.Value.AccessTokenMinutes).UtcDateTime,
+                RefreshToken = newTokenString,
+                RefreshTokenExpiresAt = newToken.ExpiresAt,
+                SessionId = session.SessionId
+            };
         }
     }
 }

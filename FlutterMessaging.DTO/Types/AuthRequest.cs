@@ -1,4 +1,4 @@
-﻿namespace FlutterMessaging.DTO
+﻿namespace FlutterMessaging.DTO.Types
 {
     public class AuthRequest
     {

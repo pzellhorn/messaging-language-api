@@ -14,8 +14,11 @@ namespace FlutterMessaging.Logic.DTOAdapters.DTOAdapters
       IExternalIdentityDtoAdapter
     {  
 
-        public Task<string> AuthenticateWithGoogle(string token, string nonce, string deviceId, CancellationToken cancellationToken) 
+        public Task<AuthTokenResponse> AuthenticateWithGoogle(string token, string nonce, string deviceId, CancellationToken cancellationToken) 
             =>  externalIdentityLogic.AuthenticateWithGoogle(token, nonce, deviceId, cancellationToken);
+
+        public Task<AuthTokenResponse> RotateRefreshToken(Guid sessionId, string refreshToken, CancellationToken cancellationToken)
+          => externalIdentityLogic.RotateRefreshToken(sessionId, refreshToken, cancellationToken);
     }
 
 }

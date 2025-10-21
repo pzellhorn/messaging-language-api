@@ -14,7 +14,9 @@ public class Session : IIsDeleted, ICreatedAt, IModifiedAt, IPrimaryKeySelector<
     public string? DeviceInfo { get; set; }              
     public string? UserAgent { get; set; }
     public string? IpAddress { get; set; }            
-    public DateTime? RevokedAt { get; set; }            
+    public DateTime? RevokedAt { get; set; } 
+    public DateTime? LastSeenAt { get; set; } 
+    public string DeviceId { get; set; }
 
     public DateTime CreatedAt { get; set; }
     public DateTime ModifiedAt { get; set; }
