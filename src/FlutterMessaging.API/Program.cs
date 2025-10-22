@@ -2,13 +2,13 @@ using System.Text;
 using FlutterMessaging.ClientAPI.ServiceExtensions;
 using FlutterMessaging.Logic.ServiceExtensions;
 using FlutterMessaging.Logic.ServiceLogic;
-using FlutterMessaging.State.Data;
 using FlutterMessaging.State.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using DotNetEnv;
 using FlutterMessaging.DTO.Types;
+using FlutterMessaging.State.Base.dbContext;
 
 namespace FlutterMessagingApi
 {
