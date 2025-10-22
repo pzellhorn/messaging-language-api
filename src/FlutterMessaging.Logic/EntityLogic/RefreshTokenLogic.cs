@@ -1,5 +1,5 @@
-﻿using FlutterMessaging.Logic.Base;
-using FlutterMessaging.State.Base.Interfaces;
+﻿using pzellhorn.Core.Logic.Base;
+using pzellhorn.Core.State.Base.Interfaces;
 using FlutterMessaging.State.Data.Entities;
 
 namespace FlutterMessaging.Logic.EntityLogic

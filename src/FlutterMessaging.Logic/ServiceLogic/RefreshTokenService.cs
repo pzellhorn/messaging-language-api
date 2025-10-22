@@ -3,7 +3,6 @@ using System.Text;
 using FlutterMessaging.State.Data.Entities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
 using FlutterMessaging.DTO.Types;
 
 namespace FlutterMessaging.Logic.ServiceLogic

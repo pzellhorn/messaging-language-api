@@ -1,5 +1,5 @@
-﻿using FlutterMessaging.State.Base;
-using FlutterMessaging.State.Base.Interfaces;
+﻿using pzellhorn.Core.State.Base;
+using pzellhorn.Core.State.Base.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FlutterMessaging.State.Extensions

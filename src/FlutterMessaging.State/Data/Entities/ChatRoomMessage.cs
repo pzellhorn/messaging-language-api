@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
-using FlutterMessaging.State.Base;
-using FlutterMessaging.State.Base.Interfaces;
+using pzellhorn.Core.State.Base;
+using pzellhorn.Core.State.Base.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

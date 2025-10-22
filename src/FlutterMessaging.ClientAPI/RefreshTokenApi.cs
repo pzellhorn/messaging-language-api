@@ -1,4 +1,4 @@
-﻿using FlutterMessaging.ClientAPI.Base;
+﻿using pzellhorn.Core.ClientAPI.Base;
 using FlutterMessaging.DTO.RequestDTOs;
 using FlutterMessaging.DTO.ResponseDTOs;
 

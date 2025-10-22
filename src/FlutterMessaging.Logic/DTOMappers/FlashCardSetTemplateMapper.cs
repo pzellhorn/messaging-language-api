@@ -1,6 +1,6 @@
 using FlutterMessaging.DTO.RequestDTOs;
 using FlutterMessaging.DTO.ResponseDTOs;
-using FlutterMessaging.Logic.Base.DTOAdapter;
+using pzellhorn.Core.Logic.Base;
 using FlutterMessaging.State.Data.Entities;
 
 namespace FlutterMessaging.Logic.DTOMappers

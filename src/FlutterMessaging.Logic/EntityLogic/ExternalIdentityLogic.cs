@@ -1,8 +1,8 @@
 ﻿    using FlutterMessaging.DTO.ResponseDTOs;
 using FlutterMessaging.DTO.Types;
-using FlutterMessaging.Logic.Base;
+using pzellhorn.Core.Logic.Base;
 using FlutterMessaging.Logic.ServiceLogic;
-using FlutterMessaging.State.Base.Interfaces;
+using pzellhorn.Core.State.Base.Interfaces;
 using FlutterMessaging.State.Data.Entities;
 using Google.Apis.Auth;
 using Microsoft.Extensions.Options;

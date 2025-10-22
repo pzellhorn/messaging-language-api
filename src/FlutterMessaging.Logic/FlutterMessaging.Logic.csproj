@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\src\pzellhorn.Core.Logic\pzellhorn.Core.Logic.csproj" />
     <ProjectReference Include="..\FlutterMessaging.DTO\FlutterMessaging.DTO.csproj" />
     <ProjectReference Include="..\FlutterMessaging.State\FlutterMessaging.State.csproj" />
   </ItemGroup>

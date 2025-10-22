@@ -1,5 +1,5 @@
-﻿using FlutterMessaging.ClientAPI.Base;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using pzellhorn.Core.ClientAPI.ServiceExtensions;
 
 namespace FlutterMessaging.ClientAPI.ServiceExtensions
 {
@@ -7,7 +7,7 @@ namespace FlutterMessaging.ClientAPI.ServiceExtensions
     {
         public static IServiceCollection AddClientApiExtensions(this IServiceCollection services, Uri baseAddress)
         {
-            services.AddHttpClient<ApiTransport>(x => x.BaseAddress = baseAddress); 
+            services.AddClientApiBaseExtensions(baseAddress);
 
             //ClientApi Implementations 
             services.AddScoped<ChatRoomApi>();

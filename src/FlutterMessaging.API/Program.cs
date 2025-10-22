@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using DotNetEnv;
 using FlutterMessaging.DTO.Types;
-using FlutterMessaging.State.Base.dbContext;
+using pzellhorn.Core.State.Base.DBContext;
 
 namespace FlutterMessagingApi
 {
@@ -65,7 +65,7 @@ namespace FlutterMessagingApi
             builder.Services.AddControllers();
 
             //dbContext EFCore
-            builder.Services.AddDbContext<MessagingDbContext>(options =>
+            builder.Services.AddDbContext<BaseDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("Local"))
                         .UseSnakeCaseNamingConvention());
 
