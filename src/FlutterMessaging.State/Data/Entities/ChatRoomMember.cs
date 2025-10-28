@@ -14,6 +14,8 @@ public partial class ChatRoomMember : IIsDeleted, ICreatedAt, IModifiedAt, IPrim
 
     public Guid ProfileId { get; set; }
 
+    public DateTime? LastReadAt { get; set; }
+
 
 
     public bool IsDeleted { get; set; }

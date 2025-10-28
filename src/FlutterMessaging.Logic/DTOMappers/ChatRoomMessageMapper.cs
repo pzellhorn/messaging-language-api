@@ -26,6 +26,6 @@ namespace FlutterMessaging.Logic.DTOMappers
         };
 
         public ChatRoomMessageResponse ToResponse(ChatRoomMessage model)
-        => new(model.ChatRoomMessageId, model.ProfileId, model.ChatRoomId, model.MessageText);
+        => new(model.ChatRoomMessageId, model.ProfileId, model.ChatRoomId, model.MessageText, model.CreatedAt);
     }
 }
