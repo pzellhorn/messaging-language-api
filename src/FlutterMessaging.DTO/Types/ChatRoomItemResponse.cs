@@ -11,8 +11,8 @@ namespace FlutterMessaging.DTO.Types
     {
         public Guid ChatRoomId { get; set; }
         public MessageParticipantResponse OtherParticipant { get; set; } = default!;
-        public MessageParticipantResponse? LastMessage { get; set; }
+        public ChatRoomMessageTypeResponse? LastMessage { get; set; }
         public int UnreadCount { get; set; }
-        public DateTime CreatedAtUtc { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }
