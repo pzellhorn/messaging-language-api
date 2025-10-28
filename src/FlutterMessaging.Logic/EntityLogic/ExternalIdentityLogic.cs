@@ -1,5 +1,4 @@
-﻿    using FlutterMessaging.DTO.ResponseDTOs;
-using FlutterMessaging.DTO.Types;
+﻿using FlutterMessaging.DTO.Types;
 using pzellhorn.Core.Logic.Base;
 using FlutterMessaging.Logic.ServiceLogic;
 using pzellhorn.Core.State.Base.Interfaces;
@@ -7,6 +6,7 @@ using FlutterMessaging.State.Data.Entities;
 using Google.Apis.Auth;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 
 
 namespace FlutterMessaging.Logic.EntityLogic

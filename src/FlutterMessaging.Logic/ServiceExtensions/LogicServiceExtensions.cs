@@ -1,12 +1,12 @@
 ﻿using FlutterMessaging.DTO.DTOAdapters.Interfaces;
-using FlutterMessaging.DTO.RequestDTOs;
-using FlutterMessaging.DTO.ResponseDTOs;
 using pzellhorn.Core.Logic.Base;
 using FlutterMessaging.Logic.DTOAdapters.DTOAdapters;
 using FlutterMessaging.Logic.DTOMappers;
 using FlutterMessaging.Logic.EntityLogic;
 using FlutterMessaging.State.Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
+using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 
 namespace FlutterMessaging.Logic.ServiceExtensions
 {

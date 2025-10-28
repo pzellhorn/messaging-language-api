@@ -1,6 +1,6 @@
 ﻿using pzellhorn.Core.ClientAPI.Base;
-using FlutterMessaging.DTO.RequestDTOs;
-using FlutterMessaging.DTO.ResponseDTOs;
+using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
+using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 
 namespace FlutterMessaging.ClientAPI
 {

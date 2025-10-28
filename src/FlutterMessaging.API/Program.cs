@@ -28,11 +28,7 @@ namespace FlutterMessagingApi
                 throw new ArgumentNullException("Failed to find Jwt:SigningKey in .env");
 
             builder.Services.Configure<RefreshTokenOptions>(builder.Configuration.GetSection("RefreshToken"));
-            builder.Services.AddSingleton<IRefreshTokenService, RefreshTokenService>();
-
-            string? pepper = builder.Configuration["RefreshToken:Pepper"];
-            if (string.IsNullOrWhiteSpace(pepper))
-                Console.WriteLine("RefreshToken pepper not set; using SHA-256 fallback (dev only)."); 
+            builder.Services.AddSingleton<IRefreshTokenService, RefreshTokenService>(); 
 
             byte[] signingKeyBytes = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SigningKey"]);  
 

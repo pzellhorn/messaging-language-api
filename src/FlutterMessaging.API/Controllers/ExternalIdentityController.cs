@@ -1,6 +1,6 @@
 ﻿using FlutterMessaging.DTO.DTOAdapters.Interfaces;
-using FlutterMessaging.DTO.RequestDTOs;
-using FlutterMessaging.DTO.ResponseDTOs;
+using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
+using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 using FlutterMessaging.DTO.Types;
 using Microsoft.AspNetCore.Mvc;
 using pzellhorn.Core;
