@@ -18,15 +18,15 @@ namespace FlutterMessaging.Logic.EntityLogic
     {
         public async Task<PostChatRoomsDmStartResponse> OpenChatRoom(
             Guid profileId,
-            ChatRoomMessageTypeResponse request,
+            OpenChatRoomRequest request,
             CancellationToken cancellationToken = default)
         {
-            if (profileId == request.SenderProfileId)
+            if (profileId == request.OtherProfileId)
                 throw new InvalidOperationException("Cannot open a chat with yourself.");
 
             // Ensure both profiles exist
             Profile? profile1 = await profileRepository.Get(profileId, cancellationToken);
-            Profile? profile2 = await profileRepository.Get(request.SenderProfileId, cancellationToken);
+            Profile? profile2 = await profileRepository.Get(request.OtherProfileId, cancellationToken);
 
             if (profile1 == null || profile2 == null)
                 throw new KeyNotFoundException("One or both profiles do not exist.");
@@ -36,7 +36,7 @@ namespace FlutterMessaging.Logic.EntityLogic
                 await chatRoomMemberRepository.GetFor(profileId, x => x.ProfileId, cancellationToken);
 
             List<ChatRoomMember> profile2Memberships =
-                await chatRoomMemberRepository.GetFor(request.SenderProfileId, x => x.ProfileId, cancellationToken);
+                await chatRoomMemberRepository.GetFor(request.OtherProfileId, x => x.ProfileId, cancellationToken);
 
 
             HashSet<Guid> profile1RoomIds = profile1Memberships.Select(x => x.ChatRoomId).ToHashSet();
@@ -59,7 +59,7 @@ namespace FlutterMessaging.Logic.EntityLogic
                     if (room != null)
                     {
                         member1 = members.First(m => m.ProfileId == profileId);
-                        member2 = members.First(m => m.ProfileId == request.SenderProfileId);
+                        member2 = members.First(m => m.ProfileId == request.OtherProfileId);
                         break;
                     }
                 }

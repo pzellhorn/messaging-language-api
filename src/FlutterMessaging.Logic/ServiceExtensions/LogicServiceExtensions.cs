@@ -1,12 +1,13 @@
 ﻿using FlutterMessaging.DTO.DTOAdapters.Interfaces;
-using pzellhorn.Core.Logic.Base;
+using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
+using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 using FlutterMessaging.Logic.DTOAdapters.DTOAdapters;
 using FlutterMessaging.Logic.DTOMappers;
 using FlutterMessaging.Logic.EntityLogic;
+using FlutterMessaging.Logic.ServiceLogic;
 using FlutterMessaging.State.Data.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
-using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
+using pzellhorn.Core.Logic.Base;
 
 namespace FlutterMessaging.Logic.ServiceExtensions
 {
@@ -33,60 +34,63 @@ namespace FlutterMessaging.Logic.ServiceExtensions
             services.AddScoped<ProfileSettingOptionLogic>();
             services.AddScoped<RefreshTokenLogic>();
             services.AddScoped<SessionLogic>();
-             
+
+            //Services
+            services.AddScoped<IUserContext, UserContext>();
+
             //Mapper + dto adapters
             services.AddScoped<IDTOMapper<ChatRoom, ChatRoomRequest, ChatRoomResponse>, ChatRoomMapper>();
             services.AddScoped<IChatRoomDtoAdapter, ChatRoomDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<ChatRoomMember, ChatRoomMemberRequest, ChatRoomMemberResponse>, ChatRoomMemberMapper>();
             services.AddScoped<IChatRoomMemberDtoAdapter, ChatRoomMemberDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<ChatRoomMessage, ChatRoomMessageRequest, ChatRoomMessageResponse>, ChatRoomMessageMapper>();
             services.AddScoped<IChatRoomMessageDtoAdapter, ChatRoomMessageDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<ExternalIdentity, ExternalIdentityRequest, ExternalIdentityResponse>, ExternalIdentityMapper>();
             services.AddScoped<IExternalIdentityDtoAdapter, ExternalIdentityDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<FlashCardAnswer, FlashCardAnswerRequest, FlashCardAnswerResponse>, FlashCardAnswerMapper>();
             services.AddScoped<IFlashCardAnswerDtoAdapter, FlashCardAnswerDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<FlashCardSetTemplate, FlashCardSetTemplateRequest, FlashCardSetTemplateResponse>, FlashCardSetTemplateMapper>();
             services.AddScoped<IFlashCardSetTemplateDtoAdapter, FlashCardSetTemplateDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<FlashCardSetTemplateItem, FlashCardSetTemplateItemRequest, FlashCardSetTemplateItemResponse>, FlashCardSetTemplateItemMapper>();
             services.AddScoped<IFlashCardSetTemplateItemDtoAdapter, FlashCardSetTemplateItemDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<FlashCardSetTemplateItemOption, FlashCardSetTemplateItemOptionRequest, FlashCardSetTemplateItemOptionResponse>, FlashCardSetTemplateItemOptionMapper>();
             services.AddScoped<IFlashCardSetTemplateItemOptionDtoAdapter, FlashCardSetTemplateItemOptionDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<JwtKey, JwtKeyRequest, JwtKeyResponse>, JwtKeyMapper>();
             services.AddScoped<IJwtKeyDtoAdapter, JwtKeyDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<Language, LanguageRequest, LanguageResponse>, LanguageMapper>();
             services.AddScoped<ILanguageDtoAdapter, LanguageDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<LanguageTranslation, LanguageTranslationRequest, LanguageTranslationResponse>, LanguageTranslationMapper>();
             services.AddScoped<ILanguageTranslationDtoAdapter, LanguageTranslationDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<LanguageWordFrequency, LanguageWordFrequencyRequest, LanguageWordFrequencyResponse>, LanguageWordFrequencyMapper>();
             services.AddScoped<ILanguageWordFrequencyDtoAdapter, LanguageWordFrequencyDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<Profile, ProfileRequest, ProfileResponse>, ProfileMapper>();
             services.AddScoped<IProfileDtoAdapter, ProfileDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<ProfileSetting, ProfileSettingRequest, ProfileSettingResponse>, ProfileSettingMapper>();
             services.AddScoped<IProfileSettingDtoAdapter, ProfileSettingDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<ProfileSettingOption, ProfileSettingOptionRequest, ProfileSettingOptionResponse>, ProfileSettingOptionMapper>();
             services.AddScoped<IProfileSettingOptionDtoAdapter, ProfileSettingOptionDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<RefreshToken, RefreshTokenRequest, RefreshTokenResponse>, RefreshTokenMapper>();
             services.AddScoped<IRefreshTokenDtoAdapter, RefreshTokenDtoAdapter>();
-             
+
             services.AddScoped<IDTOMapper<Session, SessionRequest, SessionResponse>, SessionMapper>();
             services.AddScoped<ISessionDtoAdapter, SessionDtoAdapter>();
 
-            return services; 
+            return services;
         }
-    } 
+    }
 }
