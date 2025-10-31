@@ -2,7 +2,7 @@
 # --Windows --
 # Run migration in root (/API/FlutterMessagingApi/src/) 
 
-$MigrationName     = "messagingendpoints"
+$MigrationName     = "messaging_fixPrimaryKeyChatRoomMessage"
 
 $Project  = "FlutterMessaging.State"
 $Startup  = "FlutterMessaging.API"
@@ -33,4 +33,4 @@ Pop-Location
 
  
 --unix--
-docker exec -i $(docker compose ps -q db) psql -U peter -d messagingdb < ../Migrations/pluralize_tables.sql
+#docker exec -i $(docker compose ps -q db) psql -U peter -d messagingdb < ../Migrations/pluralize_tables.sql
