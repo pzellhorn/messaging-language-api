@@ -24,7 +24,7 @@ public partial class ChatRoomMessage : IIsDeleted, ICreatedAt, IModifiedAt, IPri
     public DateTime ModifiedAt { get; set; }
 
 
-    public static Expression<Func<ChatRoomMessage, Guid>> PrimaryKey => e => e.ChatRoomId;
+    public static Expression<Func<ChatRoomMessage, Guid>> PrimaryKey => e => e.ChatRoomMessageId;
 
 
     public virtual ChatRoom ChatRoom { get; set; }
