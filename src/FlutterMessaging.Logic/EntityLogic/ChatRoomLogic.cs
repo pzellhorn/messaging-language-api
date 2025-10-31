@@ -21,12 +21,18 @@ namespace FlutterMessaging.Logic.EntityLogic
             OpenChatRoomRequest request,
             CancellationToken cancellationToken = default)
         {
-            if (profileId == request.OtherProfileId)
+
+            List<Profile> convoPartnerProfiles = await profileRepository.GetFor(request.EmailAddress, x => x.EmailAddress, cancellationToken);
+            Profile? convoPartnerProfile = convoPartnerProfiles.FirstOrDefault();
+            if (convoPartnerProfile == null)
+                throw new InvalidOperationException("Email Address invalid");
+
+            if (profileId == convoPartnerProfile.ProfileId)
                 throw new InvalidOperationException("Cannot open a chat with yourself.");
 
             // Ensure both profiles exist
             Profile? profile1 = await profileRepository.Get(profileId, cancellationToken);
-            Profile? profile2 = await profileRepository.Get(request.OtherProfileId, cancellationToken);
+            Profile? profile2 = await profileRepository.Get(convoPartnerProfile.ProfileId, cancellationToken);
 
             if (profile1 == null || profile2 == null)
                 throw new KeyNotFoundException("One or both profiles do not exist.");
@@ -36,7 +42,7 @@ namespace FlutterMessaging.Logic.EntityLogic
                 await chatRoomMemberRepository.GetFor(profileId, x => x.ProfileId, cancellationToken);
 
             List<ChatRoomMember> profile2Memberships =
-                await chatRoomMemberRepository.GetFor(request.OtherProfileId, x => x.ProfileId, cancellationToken);
+                await chatRoomMemberRepository.GetFor(convoPartnerProfile.ProfileId, x => x.ProfileId, cancellationToken);
 
 
             HashSet<Guid> profile1RoomIds = profile1Memberships.Select(x => x.ChatRoomId).ToHashSet();
@@ -59,7 +65,7 @@ namespace FlutterMessaging.Logic.EntityLogic
                     if (room != null)
                     {
                         member1 = members.First(m => m.ProfileId == profileId);
-                        member2 = members.First(m => m.ProfileId == request.OtherProfileId);
+                        member2 = members.First(m => m.ProfileId == convoPartnerProfile.ProfileId);
                         break;
                     }
                 }

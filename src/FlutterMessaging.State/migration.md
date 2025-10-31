@@ -2,15 +2,16 @@
 # --Windows --
 # Run migration in root (/API/FlutterMessagingApi/src/) 
 
-$Name     = "messagingendpoints"
+$MigrationName     = "messagingendpoints"
+
 $Project  = "FlutterMessaging.State"
 $Startup  = "FlutterMessaging.API"
 $Context  = "FlutterMessaging.State.Data.MessagingDbContext"
 $OutDir   = Join-Path $Project "Migrations"
-$OutFile  = Join-Path $OutDir "$Name.sql"
+$OutFile  = Join-Path $OutDir "$MigrationName.sql"
 New-Item -ItemType Directory -Force -Path $OutDir | Out-Null
 
-dotnet ef migrations add $Name `
+dotnet ef migrations add $MigrationName `
   --project $Project `
   --startup-project $Startup `
   --context $Context `
@@ -22,12 +23,12 @@ dotnet ef migrations add $Name `
 
 
 # --Windows --
-# apply to docker pod, in the src folder:  
+# apply to docker pod, still in the same root folder:  
 
 $composeDir = Resolve-Path (Join-Path $Project 'database')
 Push-Location $composeDir.Path
 $cid = docker compose ps -q db
-Get-Content -Raw (Join-Path ..\Migrations "$Name.sql") | docker exec -i $cid psql -U peter -d messagingdb
+Get-Content -Raw (Join-Path ..\Migrations "$MigrationName.sql") | docker exec -i $cid psql -U peter -d messagingdb
 Pop-Location
 
  

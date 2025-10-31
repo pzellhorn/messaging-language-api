@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FlutterMessaging.DTO.Types;
+﻿using FlutterMessaging.DTO.Types;
 
 namespace FlutterMessaging.DTO.ResponseDTOs.MessagingResponses
 {
