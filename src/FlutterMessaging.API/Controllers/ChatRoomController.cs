@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using pzellhorn.Core;
 
 namespace FlutterMessaging.API.Controllers
-{ 
+{
     [ApiController]
     [Route("api/[controller]")]
     public class ChatRoomController(IChatRoomDtoAdapter logic) : BaseController<ChatRoomRequest, ChatRoomResponse>(logic)

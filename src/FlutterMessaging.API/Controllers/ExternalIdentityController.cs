@@ -15,13 +15,13 @@ namespace FlutterMessaging.API.Controllers
         public async Task<ActionResult<AuthTokenResponse>> AuthenticateWithGoogle(
             [FromBody] AuthRequest request,
             CancellationToken cancellationToken = default)
-        { 
+        {
             return Ok(await logic.AuthenticateWithGoogle(request.Token, "", request.deviceId, cancellationToken));
         }
 
         [HttpPost(nameof(Refresh))]
         public async Task<ActionResult<AuthTokenResponse>> Refresh([FromBody] RefreshRequest request, CancellationToken cancellationToken = default)
-        {  
+        {
             return Ok(await logic.RotateRefreshToken(request.SessionId, request.RefreshToken, cancellationToken));
         }
     }

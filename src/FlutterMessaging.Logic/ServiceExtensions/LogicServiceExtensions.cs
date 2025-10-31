@@ -37,6 +37,7 @@ namespace FlutterMessaging.Logic.ServiceExtensions
 
             //Services
             services.AddScoped<IUserContext, UserContext>();
+            services.AddScoped<ILlmTranslator, LlmTranslator>();
 
             //Mapper + dto adapters
             services.AddScoped<IDTOMapper<ChatRoom, ChatRoomRequest, ChatRoomResponse>, ChatRoomMapper>();
