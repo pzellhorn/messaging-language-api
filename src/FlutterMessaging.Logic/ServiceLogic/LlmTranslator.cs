@@ -19,7 +19,7 @@ namespace FlutterMessaging.Logic.ServiceLogic
 
         public LLMTranslationResponse Translate(LLMTranslationRequest request)
         {
-            if (request == null) throw new ArgumentNullException(nameof(request));
+            ArgumentNullException.ThrowIfNull(request);
             if (string.IsNullOrWhiteSpace(request.MessageToTranslate))
                 return new LLMTranslationResponse { Message = string.Empty };
 
