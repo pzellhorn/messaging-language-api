@@ -7,6 +7,19 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
+#Make sure we got perms
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - services
+    - enable
+    - run.googleapis.com
+    - sqladmin.googleapis.com
+    - artifactregistry.googleapis.com
+    - secretmanager.googleapis.com
+    - --project=$PROJECT_ID
+    - --quiet
+
 # Checkout Core repo
 - name: 'gcr.io/cloud-builders/git'
   entrypoint: bash
@@ -55,6 +68,7 @@ steps:
     - '--set-secrets=GoogleAPIKey=GoogleAPIKey:latest'
     # .NET 8 container port
     - '--set-env-vars=ASPNETCORE_HTTP_PORTS=8080'
+    - '--quiet'  
 
 images:
 - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
