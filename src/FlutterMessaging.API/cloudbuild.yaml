@@ -7,14 +7,15 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
-# Build image
+# Build image 
 - name: 'gcr.io/cloud-builders/docker'
+  dir: 'src/FlutterMessaging.API'
   args:
     - build
     - -t
     - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
     - .
-
+     
 # Push image
 - name: 'gcr.io/cloud-builders/docker'
   args:
