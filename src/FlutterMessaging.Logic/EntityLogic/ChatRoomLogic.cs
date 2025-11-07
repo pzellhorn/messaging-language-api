@@ -143,7 +143,7 @@ namespace FlutterMessaging.Logic.EntityLogic
 
             List<Guid> roomIds = memberships.Select(x => x.ChatRoomId).Distinct().ToList();
 
-            List<ChatRoom> rooms = new List<ChatRoom>();
+            List<ChatRoom> rooms = new();
             foreach (Guid roomId in roomIds)
             {
                 ChatRoom? room = await chatRoomRepository.Get(roomId, cancellationToken);

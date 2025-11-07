@@ -25,7 +25,7 @@ namespace FlutterMessaging.Logic.ServiceLogic
 
             string systemInstruction = BuildSystemInstruction(request.FromLanguage, request.ToLanguage);
 
-            string userPrompt = BuildTranslationPrompt(request.FromLanguage, request.ToLanguage, request.MessageToTranslate, request.MessageContext);
+            string userPrompt = BuildTranslationPrompt(request.ToLanguage, request.MessageToTranslate, request.MessageContext);
 
 
             var body = new
@@ -75,9 +75,9 @@ namespace FlutterMessaging.Logic.ServiceLogic
                     candidates[0].TryGetProperty("content", out JsonElement content) &&
                     content.TryGetProperty("parts", out JsonElement parts) &&
                     parts.GetArrayLength() > 0 &&
-                    parts[0].TryGetProperty("text", out JsonElement textEl))
+                    parts[0].TryGetProperty("text", out JsonElement textElement))
                 {
-                    string text = textEl.GetString() ?? string.Empty;
+                    string text = textElement.GetString() ?? string.Empty;
                     return new LLMTranslationResponse { Message = text.Trim() };
                 }
                 else
@@ -97,7 +97,7 @@ namespace FlutterMessaging.Logic.ServiceLogic
             }
         }
 
-        private static string BuildTranslationPrompt(string fromLanguage, string toLanguage, string message, string? sentenceContext)
+        private static string BuildTranslationPrompt(string toLanguage, string message, string? sentenceContext)
         {
             string text = $"Translate the following Message Text into {toLanguage}.\n" +
                 $"Preserve meaning, tone, names, punctuation, emojis, and line breaks.\n" +
