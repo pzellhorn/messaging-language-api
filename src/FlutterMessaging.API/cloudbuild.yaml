@@ -9,9 +9,10 @@ options:
 steps:
 # Build image 
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'src/FlutterMessaging.API'
   args:
     - build
+    - -f
+    - src/FlutterMessaging.API/Dockerfile
     - -t
     - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
     - .

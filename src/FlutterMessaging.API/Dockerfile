@@ -10,20 +10,32 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
-COPY ["FlutterMessaging.API.csproj", "./"]
-RUN dotnet restore "./FlutterMessaging.API.csproj"
+# Copy solutions for referenced projects 
+COPY ["FlutterMessagingApi.sln", "."]
+COPY ["src/FlutterMessaging.API/FlutterMessaging.API.csproj", "src/FlutterMessaging.API/"]
+COPY ["src/FlutterMessaging.ClientAPI/FlutterMessaging.ClientAPI.csproj", "src/FlutterMessaging.ClientAPI/"]
+COPY ["src/FlutterMessaging.DTO/FlutterMessaging.DTO.csproj", "src/FlutterMessaging.DTO/"]
+COPY ["src/FlutterMessaging.Logic/FlutterMessaging.Logic.csproj", "src/FlutterMessaging.Logic/"]
+COPY ["src/FlutterMessaging.State/FlutterMessaging.State.csproj", "src/FlutterMessaging.State/"]
+
+# If your API references the Core projects (submodule), include their csproj too:
+COPY ["Core/src/pzellhorn.Core.API/pzellhorn.Core.API.csproj", "Core/src/pzellhorn.Core.API/"]
+COPY ["Core/src/pzellhorn.Core.ClientAPI/pzellhorn.Core.ClientAPI.csproj", "Core/src/pzellhorn.Core.ClientAPI/"]
+COPY ["Core/src/pzellhorn.Core.Logic/pzellhorn.Core.Logic.csproj", "Core/src/pzellhorn.Core.Logic/"]
+COPY ["Core/src/pzellhorn.Core.State/pzellhorn.Core.State.csproj", "Core/src/pzellhorn.Core.State/"]
+ 
+RUN dotnet restore "src/FlutterMessaging.API/FlutterMessaging.API.csproj"
 
 COPY . .
-RUN dotnet build "./FlutterMessaging.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
-# This stage is used to publish the service project to be copied to the final stage
+RUN dotnet build "src/FlutterMessaging.API/FlutterMessaging.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+ 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FlutterMessaging.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "src/FlutterMessaging.API/FlutterMessaging.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
-ENV ASPNETCORE_HTTP_PORTS=8080
+ 
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+ENV ASPNETCORE_HTTP_PORTS=8080
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "FlutterMessaging.API.dll"]
