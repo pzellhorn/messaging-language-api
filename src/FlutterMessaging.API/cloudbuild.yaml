@@ -3,6 +3,9 @@
   _REPO: "messaging-containers"
   _SERVICE: "messaging-api"
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
 # Build image
 - name: 'gcr.io/cloud-builders/docker'
