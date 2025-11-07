@@ -7,28 +7,28 @@ using pzellhorn.Core.Logic.Base;
 namespace FlutterMessaging.Logic.DTOMappers
 {
     public class DeviceMapper
-        : IDTOMapper<Device, DeviceRequest, DeviceResponse>
+        : IDTOMapper<DeviceInstallation, DeviceRequest, DeviceResponse>
     {
         public Guid? ExtractId(DeviceRequest request) => request.DeviceInstallationId;
 
-        public void ApplyRequestToModel(DeviceRequest request, Device model)
+        public void ApplyRequestToModel(DeviceRequest request, DeviceInstallation model)
         { 
-            model.InstallationId = request.DeviceId;
+            model.DeviceId = request.DeviceId;
             model.NotificationPushToken = request.NotificationPushToken;
             model.DeviceModel = (request.DeviceModel ?? string.Empty).Trim();
             model.TimeZone = (request.TimeZone ?? string.Empty).Trim(); 
         }
 
-        public Device CreateEntity(DeviceRequest request)
+        public DeviceInstallation CreateEntity(DeviceRequest request)
         => new()
         { 
-            InstallationId = request.DeviceId,
+            DeviceId = request.DeviceId,
             NotificationPushToken = request.NotificationPushToken,
             DeviceModel = (request.DeviceModel ?? string.Empty).Trim(),
             TimeZone = (request.TimeZone ?? string.Empty).Trim(),
         };
 
-        public DeviceResponse ToResponse(Device model)
-        => new(model.DeviceId, model.ProfileId, model.InstallationId, model.NotificationPushToken, model.DeviceModel, model.TimeZone);
+        public DeviceResponse ToResponse(DeviceInstallation model)
+        => new(model.DeviceInstallationId, model.ProfileId, model.DeviceId, model.NotificationPushToken, model.DeviceModel, model.TimeZone);
     }
 }

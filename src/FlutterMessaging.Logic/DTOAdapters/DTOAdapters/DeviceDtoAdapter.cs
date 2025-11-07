@@ -21,8 +21,8 @@ namespace FlutterMessaging.Logic.DTOAdapters.DTOAdapters
     public class DeviceDtoAdapter(
        DeviceLogic deviceLogic,
               IUserContext currentUser,
-       IDTOMapper<Device, DeviceRequest, DeviceResponse> mapper)
-       : DtoLogicAdapter<Device, DeviceRequest, DeviceResponse>(deviceLogic, mapper),
+       IDTOMapper<DeviceInstallation, DeviceRequest, DeviceResponse> mapper)
+       : DtoLogicAdapter<DeviceInstallation, DeviceRequest, DeviceResponse>(deviceLogic, mapper),
          IDeviceDtoAdapter
     { 
         public Task<DeviceResponse> RegisterDevice(DeviceRequest request, CancellationToken cancellationToken = default)

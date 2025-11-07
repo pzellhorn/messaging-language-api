@@ -6,37 +6,35 @@ using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 
 namespace FlutterMessaging.Logic.EntityLogic
 { 
-    public class DeviceLogic(IBaseRepository<Device> deviceRepository) : BaseLogic<Device>(deviceRepository)
+    public class DeviceLogic(IBaseRepository<DeviceInstallation> deviceRepository) : BaseLogic<DeviceInstallation>(deviceRepository)
     {
         public async Task<DeviceResponse> RegisterDevice(Guid profileId, DeviceRequest request, CancellationToken cancellationToken)
-        { 
-            ArgumentNullException.ThrowIfNullOrEmpty(request.NotificationPushToken.ToString());
-            ArgumentNullException.ThrowIfNullOrEmpty(request.DeviceId.ToString());
-
-            DateTime now = DateTime.UtcNow; 
-
-            List<Device> existingDevices = await deviceRepository.GetFor(profileId, x => x.ProfileId, cancellationToken);
-            Device? existingDevice = existingDevices.Where(x => x.InstallationId == request.DeviceId).FirstOrDefault();
+        {   
+            List<DeviceInstallation> existingDevices = await deviceRepository.GetFor(profileId, x => x.ProfileId, cancellationToken);
+            DeviceInstallation? existingDevice = existingDevices.Where(x => x.DeviceId == request.DeviceId).FirstOrDefault();
 
             if (existingDevice == null)
             {
-                existingDevice = new Device
+                existingDevice = new DeviceInstallation
                 {
                     ProfileId = profileId,
-                    InstallationId = request.DeviceId,
+                    DeviceId = request.DeviceId,
                     NotificationPushToken = request.NotificationPushToken,
                     DeviceModel = request.DeviceModel,
                     TimeZone = request.TimeZone,
-                };
-
-                existingDevice = await deviceRepository.Upsert(existingDevice, cancellationToken);
+                };  
+            } else
+            {
+                existingDevice.NotificationPushToken = request.NotificationPushToken; 
             }
+
+            existingDevice = await deviceRepository.Upsert(existingDevice, cancellationToken);
 
             DeviceResponse response = new() 
             {
+                DeviceInstallationId = existingDevice.DeviceInstallationId,
                 DeviceId = existingDevice.DeviceId,
-                ProfileId = profileId,
-                InstallationId = request.DeviceId,
+                ProfileId = profileId, 
                 NotificationPushToken = request.NotificationPushToken,
                 DeviceModel = request.DeviceModel,
                 TimeZone = request.TimeZone,            
