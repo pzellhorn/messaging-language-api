@@ -18,3 +18,4 @@ build/
 /FlutterMessaging.State/database/.env
 /FlutterMessaging.API/.env
 /src/FlutterMessaging.API/.env
+/src/FlutterMessaging.API/firebase-admin-key.json
