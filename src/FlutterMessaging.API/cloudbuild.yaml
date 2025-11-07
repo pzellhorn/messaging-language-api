@@ -59,14 +59,14 @@ steps:
     - '--region=${_REGION}'
     - '--platform=managed'
     - '--allow-unauthenticated'
-    # attach Cloud SQL (instance connection name)
-    - '--add-cloudsql-instances=messaginglangugetranslation:europe-west6:messagingdb'
-    # secrets (repeatable flag is OK)
+    # attach database
+    - '--add-cloudsql-instances=messaginglangugetranslation:europe-west6:messagingdb' 
+    # Attach secrets
+    - '--update-secrets=/app/firebase-admin-key.json=firebase-admin-key:latest'
     - '--set-secrets=ConnectionStrings__Default=ConnectionStrings__Default:latest'
     - '--set-secrets=Jwt__SigningKey=Jwt__SigningKey:latest'
     - '--set-secrets=RefreshToken__Pepper=RefreshToken__Pepper:latest'
     - '--set-secrets=GoogleAPIKey=GoogleAPIKey:latest'
-    # .NET 8 container port
     - '--set-env-vars=ASPNETCORE_HTTP_PORTS=8080'
     - '--quiet'  
 

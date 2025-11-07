@@ -22,6 +22,9 @@ namespace FlutterMessagingApi
         {
             Env.Load();
             var builder = WebApplication.CreateBuilder(args);
+            builder.WebHost.ConfigureKestrel(o => o.ListenAnyIP(8080));
+
+
             builder.Services.AddHttpContextAccessor();
 
             FirebaseApp firebaseApp = FirebaseApp.Create(new AppOptions
@@ -29,7 +32,7 @@ namespace FlutterMessagingApi
                 Credential = GoogleCredential.FromFile("firebase-admin-key.json")
             });
 
-            Uri baseAddress = new("http://localhost:5064/");
+            Uri baseAddress = new("http://127.0.0.1:8080/");
 
             builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 
