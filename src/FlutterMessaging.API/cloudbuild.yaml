@@ -7,6 +7,18 @@ options:
   logging: CLOUD_LOGGING_ONLY
 
 steps:
+# Checkout Core repo
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: bash
+  args:
+    - -lc
+    - |
+      set -euxo pipefail 
+      ls -la .git || echo "No .git directory found"
+      git submodule sync --recursive
+      git submodule update --init
+      find Core -maxdepth 3 -name '*.csproj' -print
+
 # Build image 
 - name: 'gcr.io/cloud-builders/docker'
   args:
