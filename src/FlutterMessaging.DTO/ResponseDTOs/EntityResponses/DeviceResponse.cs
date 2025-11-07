@@ -3,7 +3,7 @@
     public class DeviceResponse
     {
         public DeviceResponse() { }
-        public DeviceResponse(Guid deviceInstallationId, Guid deviceId, Guid profileId, Guid notificationPushToken, string? deviceModel, string? timeZone)
+        public DeviceResponse(Guid deviceInstallationId, Guid deviceId, Guid profileId, string notificationPushToken, string? deviceModel, string? timeZone)
         {
             DeviceInstallationId = deviceInstallationId;
             DeviceId = deviceId;
@@ -15,7 +15,7 @@
         public Guid DeviceInstallationId { get; set; }
         public Guid DeviceId { get; set; }
         public Guid ProfileId { get; set; } 
-        public Guid NotificationPushToken { get; set; }
+        public string NotificationPushToken { get; set; }
         public string? DeviceModel { get; set; }
         public string? TimeZone { get; set; }
     }

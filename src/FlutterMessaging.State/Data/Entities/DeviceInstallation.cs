@@ -11,7 +11,7 @@ namespace FlutterMessaging.State.Data.Entities
         public Guid DeviceInstallationId { get; set; }
         public Guid ProfileId { get; set; }
         public Guid DeviceId { get; set; }
-        public Guid NotificationPushToken { get; set; }
+        public string NotificationPushToken { get; set; }
         public string? DeviceModel { get; set; }
         public string? TimeZone { get; set; }
 

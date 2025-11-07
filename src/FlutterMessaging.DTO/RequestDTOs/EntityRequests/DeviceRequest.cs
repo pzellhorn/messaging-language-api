@@ -9,7 +9,7 @@ namespace FlutterMessaging.DTO.RequestDTOs.EntityRequests
     public class DeviceRequest
     {
         public DeviceRequest() { }
-        public DeviceRequest(Guid? deviceInstallationId,  Guid deviceId, Guid notificationPushToken, string? deviceModel, string? timeZone)
+        public DeviceRequest(Guid? deviceInstallationId,  Guid deviceId, string notificationPushToken, string? deviceModel, string? timeZone)
         {
             DeviceInstallationId = deviceInstallationId; 
             DeviceId = deviceId;
@@ -19,7 +19,7 @@ namespace FlutterMessaging.DTO.RequestDTOs.EntityRequests
         }
         public Guid? DeviceInstallationId { get; set; } 
         public Guid DeviceId { get; set; }
-        public Guid NotificationPushToken { get; set; }
+        public string NotificationPushToken { get; set; }
         public string? DeviceModel { get; set; }
         public string? TimeZone { get; set; } 
     }

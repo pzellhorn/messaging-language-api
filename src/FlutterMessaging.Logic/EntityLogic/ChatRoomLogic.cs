@@ -5,6 +5,9 @@ using FlutterMessaging.DTO.RequestDTOs.MessagingRequests;
 using FlutterMessaging.DTO.ResponseDTOs.MessagingResponses;
 using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 using FlutterMessaging.DTO.Types;
+using Google.Apis.Storage.v1.Data;
+using FirebaseAdmin.Messaging;
+using Notification = FirebaseAdmin.Messaging.Notification;
 
 namespace FlutterMessaging.Logic.EntityLogic
 {
@@ -12,6 +15,7 @@ namespace FlutterMessaging.Logic.EntityLogic
         IBaseRepository<ChatRoom> chatRoomRepository, 
         IBaseRepository<Profile> profileRepository,
         IBaseRepository<ChatRoomMember> chatRoomMemberRepository,
+        IBaseRepository<DeviceInstallation> deviceInstallationRepository,
         IBaseRepository<ChatRoomMessage> chatRoomMessageRepository
         
         ) : BaseLogic<ChatRoom>(chatRoomRepository)
@@ -323,7 +327,54 @@ namespace FlutterMessaging.Logic.EntityLogic
 
             chatMessage = await chatRoomMessageRepository.Upsert(chatMessage, cancellationToken);
 
-            ChatRoomMessageTypeResponse dto = new ()
+            //Send push notification
+            ChatRoomMember recipient = members.Single(m => m.ProfileId != profileId);
+            List<DeviceInstallation> devicesToNotify = await deviceInstallationRepository.GetFor(recipient.ProfileId, x => x.ProfileId, cancellationToken);
+
+            Profile? recipientProfile = await profileRepository.Get(profileId, cancellationToken);
+            if (recipientProfile != null && devicesToNotify.Count > 0)
+            {
+                string title = $"{recipientProfile.ProfileName ?? recipientProfile.EmailAddress}";
+                string body = text.Length > 48 ? text[..48] + "…" : text;
+                Dictionary<string, string> data = new()
+                {
+                    ["chatRoomId"] = chatRoomId.ToString(),
+                    ["messageId"] = chatMessage.ChatRoomMessageId.ToString(),
+                    ["senderId"] = profileId.ToString()
+                };
+
+                MulticastMessage message = new MulticastMessage
+                {
+                    Tokens = devicesToNotify.Select(t => t.NotificationPushToken).ToList(),
+                    Notification = new Notification { Title = title, Body = body },
+                    Data = data,
+                    Android = new AndroidConfig
+                    {
+                        Priority = Priority.High,
+                        Notification = new AndroidNotification { ChannelId = "messages" },
+                        TimeToLive = TimeSpan.FromDays(1)
+                    },
+                    Apns = new ApnsConfig
+                    {
+                        Headers = new Dictionary<string, string> { ["apns-priority"] = "10" },
+                        Aps = new Aps { Sound = "default", Badge = 1 }
+                    }
+                };
+
+                BatchResponse notificationResponse = await FirebaseMessaging.DefaultInstance.SendEachForMulticastAsync(message, cancellationToken);
+
+                List<DeviceInstallation> deviceInstallations = await deviceInstallationRepository.GetForMany(devicesToNotify.Select(x => x.NotificationPushToken), x => x.NotificationPushToken, cancellationToken);
+
+                // Clean up invalid tokens
+                for (int i = 0; i < notificationResponse.Responses.Count; i++)
+                    if (!notificationResponse.Responses[i].IsSuccess)
+                        if (notificationResponse.Responses[i].Exception.MessagingErrorCode == MessagingErrorCode.Unregistered)
+                            await deviceInstallationRepository.Delete(
+                                deviceInstallations.Where(x => x.NotificationPushToken  == devicesToNotify[i].NotificationPushToken)
+                                .Select(x => x.DeviceInstallationId).FirstOrDefault(), cancellationToken);
+            } 
+
+            ChatRoomMessageTypeResponse response = new ()
             {
                 ChatRoomMessageId = chatMessage.ChatRoomMessageId,
                 MessageText = chatMessage.MessageText,
@@ -333,10 +384,9 @@ namespace FlutterMessaging.Logic.EntityLogic
 
             return new SendMessageResponse
             {
-                Message = dto
+                Message = response
             };
-        }
-
+        } 
 
         public async Task<ReadMessageResponse> ReadMessage(
             Guid profileId,

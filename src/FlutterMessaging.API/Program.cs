@@ -11,6 +11,8 @@ using FlutterMessaging.DTO.Types;
 using Microsoft.AspNetCore.Http;
 using pzellhorn.Core.State.Base.DBContext;
 using FlutterMessaging.State.Data;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace FlutterMessagingApi
 {
@@ -22,6 +24,10 @@ namespace FlutterMessagingApi
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddHttpContextAccessor();
 
+            FirebaseApp firebaseApp = FirebaseApp.Create(new AppOptions
+            {
+                Credential = GoogleCredential.FromFile("firebase-admin-key.json")
+            });
 
             Uri baseAddress = new("http://localhost:5064/");
 
@@ -83,7 +89,7 @@ namespace FlutterMessagingApi
             var app = builder.Build();
 
             app.UseAuthentication();
-            app.UseAuthorization();  
+            app.UseAuthorization();
 
             app.MapControllers();
 
