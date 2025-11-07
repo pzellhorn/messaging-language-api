@@ -33,6 +33,7 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "src/FlutterMessaging.API/FlutterMessaging.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+RUN ls -la /app/publish
  
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
