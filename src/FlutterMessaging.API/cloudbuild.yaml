@@ -1,0 +1,43 @@
+﻿substitutions:
+  _REGION: "europe-west6"
+  _REPO: "messaging-containers"
+  _SERVICE: "messaging-api"
+
+steps:
+# Build image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - build
+    - -t
+    - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
+    - .
+
+# Push image
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
+
+# Deploy to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - run
+    - deploy
+    - ${_SERVICE}
+    - '--image=${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
+    - '--region=${_REGION}'
+    - '--platform=managed'
+    - '--allow-unauthenticated'
+    # attach Cloud SQL (instance connection name)
+    - '--add-cloudsql-instances=messaginglangugetranslation:europe-west6:messagingdb'
+    # secrets (repeatable flag is OK)
+    - '--set-secrets=ConnectionStrings__Default=ConnectionStrings__Default:latest'
+    - '--set-secrets=Jwt__SigningKey=Jwt__SigningKey:latest'
+    - '--set-secrets=RefreshToken__Pepper=RefreshToken__Pepper:latest'
+    - '--set-secrets=GoogleAPIKey=GoogleAPIKey:latest'
+    # .NET 8 container port
+    - '--set-env-vars=ASPNETCORE_HTTP_PORTS=8080'
+
+images:
+- '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_REPO}/${_SERVICE}:$SHORT_SHA'
