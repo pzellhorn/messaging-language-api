@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>443fd825-208e-4448-9165-af8f28f4f5c6</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <AssemblyName>FlutterMessagingApi</AssemblyName>
   </PropertyGroup>
  
   <ItemGroup> 
