@@ -26,11 +26,21 @@ namespace FlutterMessagingApi
 
 
             builder.Services.AddHttpContextAccessor();
-
-            FirebaseApp firebaseApp = FirebaseApp.Create(new AppOptions
+            FirebaseApp firebaseApp;
+            try
             {
-                Credential = GoogleCredential.FromFile("/app/secrets/firebase-admin-key.json")
-            });
+                firebaseApp = FirebaseApp.Create(new AppOptions
+                {
+                    Credential = GoogleCredential.FromFile("/app/secrets/firebase-admin-key.json")
+                });
+            } catch
+            {
+                firebaseApp = FirebaseApp.Create(new AppOptions
+                {
+                    Credential = GoogleCredential.FromFile("firebase-admin-key.json")
+                });
+            }
+         
 
             Uri baseAddress = new("http://127.0.0.1:8080/");
 

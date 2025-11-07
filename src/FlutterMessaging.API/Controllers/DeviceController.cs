@@ -18,5 +18,12 @@ namespace FlutterMessaging.API.Controllers
             var result = await logic.RegisterDevice(request, cancellationToken);
             return Ok(result);
         }
+
+
+        [HttpPost(nameof(Ping))]
+        public async Task<string> Ping()
+        {
+            return "Hello! Request received";
+        }
     }
 }

@@ -30,4 +30,8 @@
 	  <ProjectReference Include="..\FlutterMessaging.Logic\FlutterMessaging.Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="secrets\" />
+  </ItemGroup>
+
 </Project>
