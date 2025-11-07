@@ -1,7 +1,9 @@
 ﻿using FlutterMessaging.DTO.DTOAdapters.Interfaces;
 using FlutterMessaging.DTO.RequestDTOs.EntityDTOs;
+using FlutterMessaging.DTO.RequestDTOs.EntityRequests;
 using FlutterMessaging.DTO.ResponseDTOs.EntityResponses;
 using FlutterMessaging.Logic.DTOAdapters.DTOAdapters;
+using FlutterMessaging.Logic.DTOAdapters.Interfaces;
 using FlutterMessaging.Logic.DTOMappers;
 using FlutterMessaging.Logic.EntityLogic;
 using FlutterMessaging.Logic.ServiceLogic;
@@ -34,6 +36,7 @@ namespace FlutterMessaging.Logic.ServiceExtensions
             services.AddScoped<ProfileSettingOptionLogic>();
             services.AddScoped<RefreshTokenLogic>();
             services.AddScoped<SessionLogic>();
+            services.AddScoped<DeviceLogic>();
 
             //Services
             services.AddScoped<IUserContext, UserContext>();
@@ -90,6 +93,9 @@ namespace FlutterMessaging.Logic.ServiceExtensions
 
             services.AddScoped<IDTOMapper<Session, SessionRequest, SessionResponse>, SessionMapper>();
             services.AddScoped<ISessionDtoAdapter, SessionDtoAdapter>();
+
+            services.AddScoped<IDTOMapper<DeviceInstallation, DeviceRequest, DeviceResponse>, DeviceMapper>();
+            services.AddScoped<IDeviceDtoAdapter, DeviceDtoAdapter>();
 
             return services;
         }
