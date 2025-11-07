@@ -38,4 +38,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 ENV ASPNETCORE_HTTP_PORTS=8080
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FlutterMessagingApi.dll"] 
+ENTRYPOINT ["dotnet", "/app/FlutterMessagingApi.dll"]  
