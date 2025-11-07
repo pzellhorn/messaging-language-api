@@ -9,12 +9,11 @@ namespace FlutterMessaging.Logic.DTOMappers
     public class DeviceMapper
         : IDTOMapper<Device, DeviceRequest, DeviceResponse>
     {
-        public Guid? ExtractId(DeviceRequest request) => request.DeviceId;
+        public Guid? ExtractId(DeviceRequest request) => request.DeviceInstallationId;
 
         public void ApplyRequestToModel(DeviceRequest request, Device model)
-        {
-            model.ProfileId = request.ProfileId;
-            model.InstallationId = request.InstallationId;
+        { 
+            model.InstallationId = request.DeviceId;
             model.NotificationPushToken = request.NotificationPushToken;
             model.DeviceModel = (request.DeviceModel ?? string.Empty).Trim();
             model.TimeZone = (request.TimeZone ?? string.Empty).Trim(); 
@@ -22,9 +21,8 @@ namespace FlutterMessaging.Logic.DTOMappers
 
         public Device CreateEntity(DeviceRequest request)
         => new()
-        {
-            ProfileId = request.ProfileId,
-            InstallationId = request.InstallationId,
+        { 
+            InstallationId = request.DeviceId,
             NotificationPushToken = request.NotificationPushToken,
             DeviceModel = (request.DeviceModel ?? string.Empty).Trim(),
             TimeZone = (request.TimeZone ?? string.Empty).Trim(),
