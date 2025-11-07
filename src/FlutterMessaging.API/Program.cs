@@ -29,7 +29,7 @@ namespace FlutterMessagingApi
 
             FirebaseApp firebaseApp = FirebaseApp.Create(new AppOptions
             {
-                Credential = GoogleCredential.FromFile("firebase-admin-key.json")
+                Credential = GoogleCredential.FromFile("/app/secrets/firebase-admin-key.json")
             });
 
             Uri baseAddress = new("http://127.0.0.1:8080/");

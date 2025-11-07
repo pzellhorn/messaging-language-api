@@ -70,7 +70,7 @@ steps:
     # attach database
     - '--add-cloudsql-instances=messaginglangugetranslation:europe-west6:messagingdb' 
     # Attach secrets
-    - '--update-secrets=ConnectionStrings__Local=ConnectionStrings__Default:latest,Jwt__SigningKey=Jwt__SigningKey:latest,RefreshToken__Pepper=RefreshToken__Pepper:latest,GoogleAPIKey=GoogleAPIKey:latest,/app/firebase-admin-key.json=firebase-admin-key:latest'
+    - '--update-secrets=ConnectionStrings__Local=ConnectionStrings__Default:latest,Jwt__SigningKey=Jwt__SigningKey:latest,RefreshToken__Pepper=RefreshToken__Pepper:latest,GoogleAPIKey=GoogleAPIKey:latest,/app/secrets/firebase-admin-key.json=firebase-admin-key:latest'
     - '--set-env-vars=ASPNETCORE_HTTP_PORTS=8080'
     - '--quiet'  
 
