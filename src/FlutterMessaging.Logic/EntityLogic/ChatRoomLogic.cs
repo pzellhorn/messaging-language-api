@@ -331,7 +331,7 @@ namespace FlutterMessaging.Logic.EntityLogic
             ChatRoomMember recipient = members.Single(m => m.ProfileId != profileId);
             List<DeviceInstallation> devicesToNotify = await deviceInstallationRepository.GetFor(recipient.ProfileId, x => x.ProfileId, cancellationToken);
 
-            Profile? recipientProfile = await profileRepository.Get(profileId, cancellationToken);
+            Profile? recipientProfile = await profileRepository.Get(recipient.ProfileId, cancellationToken);
             if (recipientProfile != null && devicesToNotify.Count > 0)
             {
                 string title = $"{recipientProfile.ProfileName ?? recipientProfile.EmailAddress}";
@@ -343,7 +343,7 @@ namespace FlutterMessaging.Logic.EntityLogic
                     ["senderId"] = profileId.ToString()
                 };
 
-                MulticastMessage message = new MulticastMessage
+                MulticastMessage message = new()
                 {
                     Tokens = devicesToNotify.Select(t => t.NotificationPushToken).ToList(),
                     Notification = new Notification { Title = title, Body = body },
