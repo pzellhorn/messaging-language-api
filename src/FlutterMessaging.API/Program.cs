@@ -80,27 +80,6 @@ namespace FlutterMessagingApi
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.FromSeconds(30)
                     };
-
-                    bearer.Events = new JwtBearerEvents
-                    {
-                        OnMessageReceived = ctx =>
-                        {
-                            var auth = ctx.Request.Headers["Authorization"].FirstOrDefault();
-                            Console.WriteLine($"Auth hdr present: {(!string.IsNullOrEmpty(auth))}, len={auth?.Length ?? 0}");
-                            return Task.CompletedTask;
-                        },
-                        OnAuthenticationFailed = ctx =>
-                        {
-                            Console.WriteLine("JWT auth failed: {0}", ctx.Exception);
-                            return Task.CompletedTask;
-                        },
-                        OnTokenValidated = ctx =>
-                        {
-                            var pid = ctx.Principal?.FindFirst("pid")?.Value;
-                            Console.WriteLine($"Token validated. pid={pid}");
-                            return Task.CompletedTask;
-                        }
-                    };
                 }); 
 
 
