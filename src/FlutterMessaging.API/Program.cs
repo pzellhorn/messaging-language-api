@@ -86,12 +86,12 @@ namespace FlutterMessagingApi
                         OnMessageReceived = ctx =>
                         {
                             var auth = ctx.Request.Headers["Authorization"].FirstOrDefault();
-                            Console.WriteLine("Auth hdr present: {Present}, len={Len}", !string.IsNullOrEmpty(auth), auth?.Length ?? 0);
+                            Console.WriteLine($"Auth hdr present: {(!string.IsNullOrEmpty(auth))}, len={auth?.Length ?? 0}");
                             return Task.CompletedTask;
                         },
                         OnAuthenticationFailed = ctx =>
                         {
-                            Console.WriteLine(ctx.Exception.ToString(), "JWT auth failed");
+                            Console.WriteLine("JWT auth failed: {0}", ctx.Exception);
                             return Task.CompletedTask;
                         },
                         OnTokenValidated = ctx =>
