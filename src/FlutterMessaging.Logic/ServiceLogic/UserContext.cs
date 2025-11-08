@@ -15,7 +15,12 @@ namespace FlutterMessaging.Logic.ServiceLogic
         {
             ClaimsPrincipal user = accessor.HttpContext?.User ?? throw new UnauthorizedAccessException("Not authenticated.");
             string? pid = user.FindFirst("pid")?.Value;
-            if (Guid.TryParse(pid, out var profileId)) return profileId; 
+
+            Console.WriteLine("Claims::GetProfileIdOrThrow::PID: " + pid);
+
+            if (Guid.TryParse(pid, out Guid profileId)) return profileId;
+
+            Console.WriteLine("Claims::GetProfileIdOrThrow::ProfileId" + profileId.ToString());
              
             throw new UnauthorizedAccessException("ProfileId claim missing/invalid.");
         }
