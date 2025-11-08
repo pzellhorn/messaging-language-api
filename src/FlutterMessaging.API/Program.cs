@@ -13,6 +13,7 @@ using pzellhorn.Core.State.Base.DBContext;
 using FlutterMessaging.State.Data;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.Extensions.Logging;
 
 namespace FlutterMessagingApi
 {
@@ -109,6 +110,45 @@ namespace FlutterMessagingApi
                 db.Database.Migrate();
                 return;
             }
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(bearer =>
+            {
+                bearer.RequireHttpsMetadata = true;
+                bearer.TokenValidationParameters = new()
+                {
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = securityKey,
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromSeconds(30)
+                };
+
+                bearer.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = ctx =>
+                    {
+                        var auth = ctx.Request.Headers["Authorization"].FirstOrDefault();
+                        Console.WriteLine("Auth hdr present: {Present}, len={Len}",!string.IsNullOrEmpty(auth), auth?.Length ?? 0);
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = ctx =>
+                    {
+                        Console.WriteLine(ctx.Exception.ToString(), "JWT auth failed");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = ctx =>
+                    {
+                        var pid = ctx.Principal?.FindFirst("pid")?.Value;
+                        Console.WriteLine($"Token validated. pid={pid}");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
+
 
             app.UseAuthentication();
             app.UseAuthorization();
