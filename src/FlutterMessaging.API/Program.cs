@@ -101,6 +101,15 @@ namespace FlutterMessagingApi
 
             var app = builder.Build();
 
+            if (args.Any(a => a.Equals("migrate", StringComparison.OrdinalIgnoreCase)) ||
+                "true".Equals(Environment.GetEnvironmentVariable("RUN_MIGRATIONS"), StringComparison.OrdinalIgnoreCase))
+            {
+                var scope = app.Services.CreateScope();
+                var db = scope.ServiceProvider.GetRequiredService<MessagingDbContext>();
+                db.Database.Migrate();
+                return;
+            }
+
             app.UseAuthentication();
             app.UseAuthorization();
 
